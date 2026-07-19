@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Replace vishwakarma-enterprises.netlify.app with the final production domain before launch. -->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>https://vishwakarma-enterprises.netlify.app/</loc><changefreq>weekly</changefreq><priority>1.0</priority></url>
+  <url><loc>https://vishwakarma-enterprises.netlify.app/products.html</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://vishwakarma-enterprises.netlify.app/product.html?id=pvc-pipes</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://vishwakarma-enterprises.netlify.app/product.html?id=cpvc-fittings</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://vishwakarma-enterprises.netlify.app/product.html?id=water-tanks</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://vishwakarma-enterprises.netlify.app/product.html?id=submersible-pumps</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+</urlset>

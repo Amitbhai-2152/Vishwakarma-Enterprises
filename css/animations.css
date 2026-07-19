@@ -1,0 +1,357 @@
+/* ==========================================
+   ANIMATIONS
+   Vishwakarma Enterprises
+========================================== */
+
+/* =========================
+   KEYFRAMES
+========================= */
+
+@keyframes fadeIn{
+
+    from{
+        opacity:0;
+    }
+
+    to{
+        opacity:1;
+    }
+
+}
+
+@keyframes fadeUp{
+
+    from{
+
+        opacity:0;
+        transform:translateY(50px);
+
+    }
+
+    to{
+
+        opacity:1;
+        transform:translateY(0);
+
+    }
+
+}
+
+@keyframes fadeLeft{
+
+    from{
+
+        opacity:0;
+        transform:translateX(-60px);
+
+    }
+
+    to{
+
+        opacity:1;
+        transform:translateX(0);
+
+    }
+
+}
+
+@keyframes fadeRight{
+
+    from{
+
+        opacity:0;
+        transform:translateX(60px);
+
+    }
+
+    to{
+
+        opacity:1;
+        transform:translateX(0);
+
+    }
+
+}
+
+@keyframes zoomIn{
+
+    from{
+
+        opacity:0;
+        transform:scale(.8);
+
+    }
+
+    to{
+
+        opacity:1;
+        transform:scale(1);
+
+    }
+
+}
+
+@keyframes floatImage{
+
+    0%{
+        transform:translateY(0px);
+    }
+
+    50%{
+        transform:translateY(-12px);
+    }
+
+    100%{
+        transform:translateY(0px);
+    }
+
+}
+
+@keyframes pulse{
+
+    0%{
+        transform:scale(1);
+    }
+
+    50%{
+        transform:scale(1.06);
+    }
+
+    100%{
+        transform:scale(1);
+    }
+
+}
+
+/* =========================
+   INITIAL STATE
+========================= */
+
+.animate{
+
+    opacity:0;
+
+}
+
+/* =========================
+   ACTIVE ANIMATION
+========================= */
+
+.animate.show{
+
+    opacity:1;
+    animation:fadeUp .8s ease forwards;
+
+}
+
+.fade-left.show{
+
+    animation:fadeLeft .8s ease forwards;
+
+}
+
+.fade-right.show{
+
+    animation:fadeRight .8s ease forwards;
+
+}
+
+.zoom.show{
+
+    animation:zoomIn .8s ease forwards;
+
+}
+
+.fade.show{
+
+    animation:fadeIn .8s ease forwards;
+
+}
+
+/* =========================
+   HERO IMAGE
+========================= */
+
+.hero-right img{
+
+    animation:floatImage 4s ease-in-out infinite;
+
+}
+
+/* =========================
+   HOVER EFFECTS
+========================= */
+
+.product-card,
+.category-card,
+.feature-box,
+.service-card,
+.why-card,
+.review-card{
+
+    transition:
+        transform .35s ease,
+        box-shadow .35s ease;
+
+}
+
+.product-card:hover,
+.category-card:hover,
+.feature-box:hover,
+.service-card:hover,
+.why-card:hover,
+.review-card:hover{
+
+    transform:translateY(-10px);
+
+    box-shadow:0 20px 45px rgba(0,0,0,.15);
+
+}
+
+.gallery-grid img{
+
+    transition:
+        transform .4s ease,
+        filter .4s ease;
+
+}
+
+.gallery-grid img:hover{
+
+    transform:scale(1.05);
+
+    filter:brightness(1.05);
+
+}
+
+/* =========================
+   BUTTONS
+========================= */
+
+.primary-btn,
+.secondary-btn,
+.call-btn,
+.whatsapp-btn{
+
+    transition:all .3s ease;
+
+}
+
+.primary-btn:hover,
+.secondary-btn:hover,
+.call-btn:hover,
+.whatsapp-btn:hover{
+
+    transform:translateY(-4px);
+
+    box-shadow:0 12px 30px rgba(0,0,0,.18);
+
+}
+
+/* =========================
+   LOGO
+========================= */
+
+.logo img{
+
+    transition:transform .4s ease;
+
+}
+
+.logo img:hover{
+
+    transform:rotate(-8deg) scale(1.08);
+
+}
+
+/* =========================
+   NAV LINKS
+========================= */
+
+.nav-links a{
+
+    position:relative;
+
+}
+
+.nav-links a::after{
+
+    content:"";
+
+    position:absolute;
+
+    left:0;
+    bottom:-6px;
+
+    width:0;
+    height:2px;
+
+    background:var(--primary);
+
+    transition:.3s;
+
+}
+
+.nav-links a:hover::after{
+
+    width:100%;
+
+}
+
+/* =========================
+   FLOATING BUTTONS
+========================= */
+
+.floating-whatsapp{
+
+    animation:pulse 2.5s infinite;
+
+}
+
+.floating-call{
+
+    animation:pulse 3s infinite;
+
+}
+
+/* =========================
+   SCROLL TO TOP
+========================= */
+
+#scrollTop{
+
+    transition:all .3s ease;
+
+}
+
+#scrollTop:hover{
+
+    transform:translateY(-5px) scale(1.05);
+
+}
+
+/* =========================
+   FAQ
+========================= */
+
+.faq-container details{
+
+    transition:.3s ease;
+
+}
+
+.faq-container details[open]{
+
+    transform:scale(1.01);
+
+}
+
+/* =========================
+   SMOOTH SECTION APPEARANCE
+========================= */
+
+section{
+
+    animation:fadeIn .6s ease;
+
+}

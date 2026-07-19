@@ -1,0 +1,102 @@
+const copy = {
+  hi: { home: "होम", products: "उत्पाद", features: "मुख्य विशेषताएँ", specifications: "विशेष विवरण", selectSize: "साइज़ चुनें", enquire: "WhatsApp पर पूछें", relatedLabel: "और देखें", relatedTitle: "संबंधित उत्पाद", details: "विवरण देखें", unavailable: "उत्पाद उपलब्ध नहीं है।", loading: "उत्पाद लोड हो रहा है…", error: "उत्पाद लोड नहीं हो सका। कृपया बाद में फिर कोशिश करें।", message: "नमस्ते, मुझे {product} के बारे में जानकारी चाहिए। चुना गया साइज़: {size}." },
+  en: { home: "Home", products: "Products", features: "Key Features", specifications: "Specifications", selectSize: "Select size", enquire: "Enquire on WhatsApp", relatedLabel: "More to explore", relatedTitle: "Related Products", details: "View Details", unavailable: "Product unavailable.", loading: "Loading product…", error: "Unable to load this product. Please try again later.", message: "Hello, I would like to enquire about {product}. Selected size: {size}." }
+};
+
+const language = () => document.documentElement.lang === "en" ? "en" : "hi";
+const escapeHTML = (value) => String(value ?? "").replace(/[&<>'"]/g, (character) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", "'": "&#39;", '"': "&quot;" }[character]));
+
+function showState(target, text) {
+  target.innerHTML = `<p class="empty-state">${text}</p>`;
+}
+
+function updateLabels() {
+  const text = copy[language()];
+  const links = document.querySelectorAll(".breadcrumb a");
+  if (links[0]) links[0].textContent = text.home;
+  if (links[1]) links[1].textContent = text.products;
+  document.getElementById("related-label").textContent = text.relatedLabel;
+  document.getElementById("related-title").textContent = text.relatedTitle;
+}
+
+function dispatchProductLoaded(product) {
+  document.dispatchEvent(new CustomEvent("productLoaded", {
+    detail: { product, url: location.href.split("#")[0] }
+  }));
+}
+
+document.addEventListener("DOMContentLoaded", async () => {
+  const target = document.getElementById("product-detail");
+  if (!target) return;
+
+  updateLabels();
+  showState(target, copy[language()].loading);
+
+  try {
+    const { getProductById, getProducts } = await import("./product-repository.js");
+    const requestedId = new URLSearchParams(location.search).get("id");
+    let product = await getProductById(requestedId);
+    if (!product && !requestedId) product = (await getProducts())[0] || null;
+    if (!product) {
+      showState(target, copy[language()].unavailable);
+      return;
+    }
+
+    const allProducts = await getProducts();
+    let selectedSize = product.sizes[0] || "";
+    let selectedImage = 0;
+
+    const updateEnquiry = () => {
+      const text = copy[language()];
+      const message = text.message.replace("{product}", product.name[language()]).replace("{size}", selectedSize || "-");
+      const link = target.querySelector("#product-enquiry");
+      if (link) link.href = `https://wa.me/918709820193?text=${encodeURIComponent(message)}`;
+    };
+
+    const openLightbox = () => {
+      let lightbox = document.getElementById("product-lightbox");
+      if (!lightbox) {
+        lightbox = document.createElement("div");
+        lightbox.id = "product-lightbox";
+        lightbox.className = "lightbox";
+        lightbox.innerHTML = '<button type="button" aria-label="Close">×</button><img alt="">';
+        document.body.appendChild(lightbox);
+        lightbox.querySelector("button").addEventListener("click", () => lightbox.classList.remove("open"));
+        lightbox.addEventListener("click", (event) => { if (event.target === lightbox) lightbox.classList.remove("open"); });
+        document.addEventListener("keydown", (event) => { if (event.key === "Escape") lightbox.classList.remove("open"); });
+      }
+      lightbox.querySelector("img").src = product.gallery[selectedImage];
+      lightbox.querySelector("img").alt = product.name[language()];
+      lightbox.classList.add("open");
+    };
+
+    const renderRelated = () => {
+      const text = copy[language()];
+      const related = allProducts.filter((item) => item.id !== product.id && item.category === product.category);
+      const items = (related.length ? related : allProducts.filter((item) => item.id !== product.id)).slice(0, 3);
+      document.getElementById("related-products").innerHTML = items.length
+        ? items.map((item) => `<article class="product-card"><img src="${escapeHTML(item.image)}" loading="lazy" alt="${escapeHTML(item.name[language()])}"><div class="product-card-content"><h3>${escapeHTML(item.name[language()])}</h3><p>${escapeHTML(item.description[language()])}</p><a class="primary-btn" href="product.html?id=${encodeURIComponent(item.id)}">${text.details}</a></div></article>`).join("")
+        : `<p class="empty-state">${text.unavailable}</p>`;
+    };
+
+    const render = () => {
+      const text = copy[language()];
+      document.getElementById("breadcrumb-product").textContent = product.name[language()];
+      document.title = `${product.name[language()]} | Vishwakarma Enterprises`;
+      target.innerHTML = `<div class="product-detail-layout"><section class="product-gallery" aria-label="${escapeHTML(product.name[language()])} gallery"><img class="product-main-image" id="main-product-image" src="${escapeHTML(product.gallery[selectedImage])}" alt="${escapeHTML(product.name[language()])}" tabindex="0"><div class="thumbnail-list">${product.gallery.map((image, index) => `<button class="thumbnail ${index === selectedImage ? "active" : ""}" data-image-index="${index}" aria-label="${escapeHTML(product.name[language()])} image ${index + 1}"><img src="${escapeHTML(image)}" alt=""></button>`).join("")}</div></section><section class="product-info-card"><span class="product-meta">${escapeHTML(product.brand)}</span><h1>${escapeHTML(product.name[language()])}</h1><p>${escapeHTML(product.description[language()])}</p><h2 class="detail-heading">${text.selectSize}</h2><div class="size-options" role="group" aria-label="${text.selectSize}">${product.sizes.map((size) => `<button class="size-option ${size === selectedSize ? "active" : ""}" data-size="${escapeHTML(size)}">${escapeHTML(size)}</button>`).join("")}</div><h2 class="detail-heading">${text.features}</h2><ul class="feature-list">${(product.features[language()] || []).map((feature) => `<li>${escapeHTML(feature)}</li>`).join("")}</ul><h2 class="detail-heading">${text.specifications}</h2><table class="spec-table"><tbody>${Object.entries(product.specifications[language()] || {}).map(([key, value]) => `<tr><th scope="row">${escapeHTML(key)}</th><td>${escapeHTML(value)}</td></tr>`).join("")}</tbody></table><a class="secondary-btn detail-enquiry" id="product-enquiry" target="_blank" rel="noopener" href="#">${text.enquire}</a></section></div>`;
+      updateEnquiry();
+      target.querySelectorAll(".thumbnail").forEach((button) => button.addEventListener("click", () => { selectedImage = Number(button.dataset.imageIndex); render(); }));
+      target.querySelectorAll(".size-option").forEach((button) => button.addEventListener("click", () => { selectedSize = button.dataset.size; render(); }));
+      const image = target.querySelector("#main-product-image");
+      image.addEventListener("click", openLightbox);
+      image.addEventListener("keydown", (event) => { if (event.key === "Enter" || event.key === " ") { event.preventDefault(); openLightbox(); } });
+    };
+
+    render();
+    renderRelated();
+    dispatchProductLoaded(product);
+    document.addEventListener("languageChanged", () => { updateLabels(); render(); renderRelated(); dispatchProductLoaded(product); });
+  } catch {
+    showState(target, copy[language()].error);
+  }
+});

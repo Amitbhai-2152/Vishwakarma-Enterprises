@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="Vishwakarma Enterprises">
+  <rect width="512" height="512" rx="96" fill="#ffffff"/>
+  <path d="M65 108h96l66 184 68-184h94L278 408h-45L65 108z" fill="#1565c0"/>
+  <path d="M301 123h138l-24 66h-76v45h70l-22 62h-48v48h77l-25 67H301V123z" fill="#1e1e1e"/>
+  <path d="M256 285c-28 33-43 59-43 80 0 25 19 45 43 45s43-20 43-45c0-21-15-47-43-80z" fill="#25a9e0"/>
+  <path d="M49 433c110-40 253-40 414 0" fill="none" stroke="#1565c0" stroke-linecap="round" stroke-width="30"/>
+</svg>

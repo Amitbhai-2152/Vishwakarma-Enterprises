@@ -1,0 +1,12 @@
+{
+  "name": "Vishwakarma Enterprises",
+  "short_name": "Vishwakarma",
+  "description": "Hardware and plumbing solutions in Kajpa, Bihar.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f5f7fa",
+  "theme_color": "#c62828",
+  "icons": [
+    {"src":"/images/app-icon.svg","sizes":"any","type":"image/svg+xml","purpose":"any maskable"}
+  ]
+}
