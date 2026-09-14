@@ -1,11 +1,11 @@
-import "../admin/js/config.js";
+import "./firebase-config.js";
 import { getApp, getApps, initializeApp } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-app.js";
 import { collection, doc, getDoc, getDocs, getFirestore, query, where } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-firestore.js";
 
 const DEFAULT_IMAGE = "images/shop3.jpeg";
 
 function getDatabase() {
-  const firebaseConfig = globalThis.ADMIN_CONFIG?.firebaseConfig;
+  const firebaseConfig = globalThis.FIREBASE_CONFIG;
   if (!firebaseConfig?.apiKey || !firebaseConfig?.projectId) {
     throw new Error("The product catalogue is not configured.");
   }
