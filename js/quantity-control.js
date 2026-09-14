@@ -2,7 +2,7 @@
   let currentProduct=null;
   let quantity=1;
   const lang=()=>document.documentElement.lang==="en"?"en":"hi";
-  const labels={hi:{quantity:"मात्रा",unit:"प्रति नग एमआरपी",total:"कुल एमआरपी",minus:"मात्रा घटाएँ",plus:"मात्रा बढ़ाएँ",pcs:"नग"},en:{quantity:"Quantity",unit:"MRP per piece",total:"Total MRP",minus:"Decrease quantity",plus:"Increase quantity",pcs:"pcs"}};
+  const labels={hi:{quantity:"मात्रा",unit:"प्रति नग MRP",total:"कुल MRP",minus:"मात्रा घटाएँ",plus:"मात्रा बढ़ाएँ",pcs:"नग"},en:{quantity:"Quantity",unit:"MRP per piece",total:"Total MRP",minus:"Decrease quantity",plus:"Increase quantity",pcs:"pcs"}};
   const money=value=>{const n=Number(value);return Number.isFinite(n)&&n>0?`₹${n.toLocaleString("en-IN",{maximumFractionDigits:2})}`:"—"};
   const safeQuantity=value=>Math.max(1,Math.floor(Number(value)||1));
   const selectedSize=()=>document.querySelector(".size-option.active")?.dataset.size||"-";
@@ -11,7 +11,7 @@
     if(!link||!currentProduct)return;
     const size=selectedSize();
     const total=money(Number(currentProduct.mrp)*quantity);
-    const text=lang()==="en"?`Hello, I would like to enquire about ${currentProduct.name?.en||"this product"}. Selected size: ${size}. Quantity: ${quantity} ${labels.en.pcs}. Total MRP: ${total}.`:`नमस्ते, मुझे ${currentProduct.name?.hi||"इस उत्पाद"} के बारे में जानकारी चाहिए। चुना गया साइज़: ${size}। मात्रा: ${quantity} ${labels.hi.pcs}। कुल एमआरपी: ${total}।`;
+    const text=lang()==="en"?`Hello, I would like to enquire about ${currentProduct.name?.en||"this product"}. Selected size: ${size}. Quantity: ${quantity} ${labels.en.pcs}. Total MRP: ${total}.`:`नमस्ते, मुझे ${currentProduct.name?.hi||"इस उत्पाद"} के बारे में जानकारी चाहिए। चुना गया साइज़: ${size}। मात्रा: ${quantity} ${labels.hi.pcs}। कुल MRP: ${total}।`;
     link.href=`https://wa.me/918709820193?text=${encodeURIComponent(text)}`;
   };
   const render=product=>{
