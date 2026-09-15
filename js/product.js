@@ -17,7 +17,7 @@ document.addEventListener("DOMContentLoaded",async()=>{
   updateLabels();
   showState(target,copy[language()].loading);
   try{
-    const {getProducts}=await import("./product-repository.js");
+    const {getProducts}=await import("./product-repository.js?v=20260915-1");
     const products=await getProducts();
     if(!Array.isArray(products))throw new Error("Products data is not an array");
     const requestedId=new URLSearchParams(location.search).get("id");
