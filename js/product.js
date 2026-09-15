@@ -56,9 +56,9 @@ document.addEventListener("DOMContentLoaded",async()=>{
       relatedTarget.innerHTML=items.length?items.map(item=>{
         const values=(item.sizes||[]).map(s=>sizeMrp(s,item)).filter(v=>v>0);
         const display=values.length?Math.min(...values):Number(item.mrp)||0;
-        const label=values.length>1?`${text.mrp} ${formatMrp(display)}+`:formatMrp(display);
+        const fromLabel=values.length>1?(language()==="en"?"From ":"से "):"";
         const image=safeImage(item.image);
-        return `<article class="product-card"><img src="${escapeHTML(image)}" loading="lazy" decoding="async" alt="${escapeHTML(item.name?.[language()]||item.name?.en||item.name?.hi||item.id)}"><div class="product-card-content"><h3>${escapeHTML(item.name?.[language()]||item.name?.en||item.name?.hi||item.id)}</h3>${display?`<div class="product-mrp"><span>${values.length>1?(language()==="en"?"From":"से")+" ":""}${text.mrp}</span><strong>${label}</strong></div>`:""}<p>${escapeHTML(item.description?.[language()]||item.description?.en||item.description?.hi||"")}</p><a class="primary-btn" href="product.html?id=${encodeURIComponent(item.id)}">${text.details}</a></div></article>`;
+        return `<article class="product-card"><img src="${escapeHTML(image)}" loading="lazy" decoding="async" alt="${escapeHTML(item.name?.[language()]||item.name?.en||item.name?.hi||item.id)}"><div class="product-card-content"><h3>${escapeHTML(item.name?.[language()]||item.name?.en||item.name?.hi||item.id)}</h3>${display?`<div class="product-mrp"><span>${fromLabel}${text.mrp}</span><strong>${formatMrp(display)}</strong></div>`:""}<p>${escapeHTML(item.description?.[language()]||item.description?.en||item.description?.hi||"")}</p><a class="primary-btn" href="product.html?id=${encodeURIComponent(item.id)}">${text.details}</a></div></article>`;
       }).join(""): `<p class="empty-state">${text.unavailable}</p>`;
       relatedTarget.querySelectorAll("img").forEach(img=>img.addEventListener("error",()=>{img.src=fallbackImage;img.onerror=null},{once:true}));
     };
