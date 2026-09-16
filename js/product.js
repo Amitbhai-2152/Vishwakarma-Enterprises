@@ -1,4 +1,4 @@
-const copy={hi:{home:"होम",products:"उत्पाद",features:"मुख्य विशेषताएँ",selectSize:"साइज़ चुनें",enquire:"WhatsApp पर पूछें",relatedLabel:"और देखें",relatedTitle:"संबंधित उत्पाद",details:"विवरण देखें",unavailable:"उत्पाद उपलब्ध नहीं है।",loading:"उत्पाद लोड हो रहा है…",error:"उत्पाद लोड नहीं हो सका। कृपया बाद में फिर कोशिश करें।",message:"नमस्ते, मुझे {product} के बारे में जानकारी चाहिए। चुना गया साइज़: {size}। मात्रा: {quantity} नग। कुल MRP: {total}।",mrp:"MRP",mrpPerPiece:"प्रति नग MRP"},en:{home:"Home",products:"Products",features:"Key Features",selectSize:"Select size",enquire:"Enquire on WhatsApp",relatedLabel:"More to explore",relatedTitle:"Related Products",details:"View Details",unavailable:"Product unavailable.",loading:"Loading product…",error:"Unable to load this product. Please try again later.",message:"Hello, I would like to enquire about {product}. Selected size: {size}. Quantity: {quantity} pcs. Total MRP: {total}.",mrp:"MRP",mrpPerPiece:"MRP per piece"}};
+const copy={hi:{home:"होम",products:"उत्पाद",features:"मुख्य विशेषताएँ",selectSize:"साइज़ चुनें",enquire:"WhatsApp पर पूछें",relatedLabel:"और देखें",relatedTitle:"संबंधित उत्पाद",details:"विवरण देखें",unavailable:"उत्पाद उपलब्ध नहीं है।",loading:"उत्पाद लोड हो रहा है…",error:"उत्पाद लोड नहीं हो सका। कृपया बाद में फिर कोशिश करें।",message:"नमस्ते, मुझे {product} के बारे में जानकारी चाहिए। चुना गया साइज़: {size}। मात्रा: {quantity} नग। कुल MRP: {total}।",mrp:"MRP",mrpPerPiece:"प्रति पीस MRP"},en:{home:"Home",products:"Products",features:"Key Features",selectSize:"Select size",enquire:"Enquire on WhatsApp",relatedLabel:"More to explore",relatedTitle:"Related Products",details:"View Details",unavailable:"Product unavailable.",loading:"Loading product…",error:"Unable to load this product. Please try again later.",message:"Hello, I would like to enquire about {product}. Selected size: {size}. Quantity: {quantity} pcs. Total MRP: {total}.",mrp:"MRP",mrpPerPiece:"MRP per piece"}};
 const language=()=>document.documentElement.lang==="en"?"en":"hi";
 const escapeHTML=value=>String(value??"").replace(/[&<>'"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;","'":"&#39;",'"':"&quot;"}[c]));
 const formatMrp=value=>{const n=Number(value);return Number.isFinite(n)&&n>0?`₹${n.toLocaleString("en-IN",{maximumFractionDigits:2})}`:""};
@@ -17,7 +17,7 @@ document.addEventListener("DOMContentLoaded",async()=>{
   updateLabels();
   showState(target,copy[language()].loading);
   try{
-    const {getProducts}=await import("./product-repository.js?v=20260915-1");
+    const {getProducts}=await import("./product-repository.js?v=20260916-1");
     const products=await getProducts();
     if(!Array.isArray(products))throw new Error("Products data is not an array");
     const requestedId=new URLSearchParams(location.search).get("id");
