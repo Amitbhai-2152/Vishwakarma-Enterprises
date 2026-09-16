@@ -1,7 +1,9 @@
-const copy={hi:{home:"होम",products:"उत्पाद",features:"मुख्य विशेषताएँ",selectSize:"साइज़ चुनें",enquire:"WhatsApp पर पूछें",relatedLabel:"और देखें",relatedTitle:"संबंधित उत्पाद",details:"विवरण देखें",unavailable:"उत्पाद उपलब्ध नहीं है।",loading:"उत्पाद लोड हो रहा है…",error:"उत्पाद लोड नहीं हो सका। कृपया बाद में फिर कोशिश करें।",message:"नमस्ते, मुझे {product} के बारे में जानकारी चाहिए। चुना गया साइज़: {size}। मात्रा: {quantity} नग। कुल MRP: {total}।",mrp:"MRP",mrpPerPiece:"प्रति पीस MRP"},en:{home:"Home",products:"Products",features:"Key Features",selectSize:"Select size",enquire:"Enquire on WhatsApp",relatedLabel:"More to explore",relatedTitle:"Related Products",details:"View Details",unavailable:"Product unavailable.",loading:"Loading product…",error:"Unable to load this product. Please try again later.",message:"Hello, I would like to enquire about {product}. Selected size: {size}. Quantity: {quantity} pcs. Total MRP: {total}.",mrp:"MRP",mrpPerPiece:"MRP per piece"}};
+const copy={hi:{home:"होम",products:"उत्पाद",features:"मुख्य विशेषताएँ",selectSize:"साइज़ चुनें",enquire:"WhatsApp पर पूछें",relatedLabel:"और देखें",relatedTitle:"संबंधित उत्पाद",details:"विवरण देखें",unavailable:"उत्पाद उपलब्ध नहीं है।",loading:"उत्पाद लोड हो रहा है…",error:"उत्पाद लोड नहीं हो सका। कृपया बाद में फिर कोशिश करें।",message:"नमस्ते, मुझे {product} के बारे में जानकारी चाहिए। चुना गया साइज़: {size}। मात्रा: {quantity}। कुल MRP: {total}।",mrp:"MRP"},en:{home:"Home",products:"Products",features:"Key Features",selectSize:"Select size",enquire:"Enquire on WhatsApp",relatedLabel:"More to explore",relatedTitle:"Related Products",details:"View Details",unavailable:"Product unavailable.",loading:"Loading product…",error:"Unable to load this product. Please try again later.",message:"Hello, I would like to enquire about {product}. Selected size: {size}. Quantity: {quantity}. Total MRP: {total}.",mrp:"MRP"}};
+const units={piece:{en:"Piece",hi:"प्रति पीस"},meter:{en:"Meter",hi:"प्रति मीटर"},kg:{en:"Kg",hi:"प्रति किग्रा"},litre:{en:"Litre",hi:"प्रति लीटर"},box:{en:"Box",hi:"प्रति बॉक्स"}};
 const language=()=>document.documentElement.lang==="en"?"en":"hi";
 const escapeHTML=value=>String(value??"").replace(/[&<>'"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;","'":"&#39;",'"':"&quot;"}[c]));
 const formatMrp=value=>{const n=Number(value);return Number.isFinite(n)&&n>0?`₹${n.toLocaleString("en-IN",{maximumFractionDigits:2})}`:""};
+const unitText=unit=>{const key=Object.prototype.hasOwnProperty.call(units,unit)?unit:"piece";return units[key][language()]};
 const fallbackImage="images/shop3.jpeg";
 function safeImage(value){return value||fallbackImage}
 function showState(target,text){target.innerHTML=`<p class="empty-state">${text}</p>`}
@@ -17,7 +19,7 @@ document.addEventListener("DOMContentLoaded",async()=>{
   updateLabels();
   showState(target,copy[language()].loading);
   try{
-    const {getProducts}=await import("./product-repository.js?v=20260916-1");
+    const {getProducts}=await import("./product-repository.js?v=20260916-2");
     const products=await getProducts();
     if(!Array.isArray(products))throw new Error("Products data is not an array");
     const requestedId=new URLSearchParams(location.search).get("id");
@@ -35,6 +37,7 @@ document.addEventListener("DOMContentLoaded",async()=>{
     const selectedSizeText=()=>sizeName(selectedVariant())||"-";
     const selectedMrp=()=>sizeMrp(selectedVariant(),product);
     const productNameForLanguage=()=>product.name?.[language()]||product.name?.en||product.name?.hi||product.id||"Product";
+    const selectedUnitText=()=>unitText(product.unit);
 
     const updateEnquiry=()=>{
       const link=target.querySelector("#product-enquiry");
@@ -42,7 +45,7 @@ document.addEventListener("DOMContentLoaded",async()=>{
         link.dataset.baseWhatsappMessage=copy[language()].message
           .replace("{product}",productNameForLanguage())
           .replace("{size}",selectedSizeText())
-          .replace("{quantity}",String(currentQuantity))
+          .replace("{quantity}",`${currentQuantity} ${selectedUnitText()}`)
           .replace("{total}",formatMrp(selectedMrp()*currentQuantity)||"—");
       }
     };
@@ -89,7 +92,7 @@ document.addEventListener("DOMContentLoaded",async()=>{
       const mainImage=safeImage(gallery[selectedImage]||gallery[0]);
       const featureValues=(product.features?.[language()]||product.features?.en||product.features?.hi||[]);
 
-      target.innerHTML=`<div class="product-detail-layout"><section class="product-gallery" aria-label="${escapeHTML(name)} gallery"><img class="product-main-image" id="main-product-image" src="${escapeHTML(mainImage)}" alt="${escapeHTML(name)}" tabindex="0" role="button" aria-label="Open ${escapeHTML(name)} image"><div class="thumbnail-list">${gallery.filter(Boolean).map((image,index)=>`<button type="button" class="thumbnail ${index===selectedImage?"active":""}" data-image-index="${index}" aria-pressed="${index===selectedImage}" aria-label="${escapeHTML(name)} image ${index+1}"><img src="${escapeHTML(safeImage(image))}" alt="" loading="lazy" decoding="async"></button>`).join("")}</div></section><section class="product-info-card"><span class="product-meta">${escapeHTML(product.brand||"")}</span><h1>${escapeHTML(name)}</h1>${mrp?`<div class="product-detail-mrp"><span>${text.mrpPerPiece}</span><strong>${mrp}</strong></div>`:""}<p>${escapeHTML(product.description?.[language()]||product.description?.en||product.description?.hi||"")}</p>${sizes.length?`<h2 class="detail-heading">${text.selectSize}</h2><div class="size-options" role="group" aria-label="${escapeHTML(text.selectSize)}">${sizes.map((size,index)=>`<button type="button" class="size-option ${index===selectedSizeIndex?"active":""}" data-size-index="${index}" aria-pressed="${index===selectedSizeIndex}">${escapeHTML(sizeName(size))}${sizeMrp(size,product)>0?` <span class="size-option-mrp">(${formatMrp(sizeMrp(size,product))})</span>`:""}</button>`).join("")}</div>`:""}<h2 class="detail-heading">${text.features}</h2><ul class="feature-list">${featureValues.map(feature=>`<li>${escapeHTML(feature)}</li>`).join("")}</ul><a class="secondary-btn detail-enquiry" id="product-enquiry" target="_blank" rel="noopener" href="#">${text.enquire}</a></section></div>`;
+      target.innerHTML=`<div class="product-detail-layout"><section class="product-gallery" aria-label="${escapeHTML(name)} gallery"><img class="product-main-image" id="main-product-image" src="${escapeHTML(mainImage)}" alt="${escapeHTML(name)}" tabindex="0" role="button" aria-label="Open ${escapeHTML(name)} image"><div class="thumbnail-list">${gallery.filter(Boolean).map((image,index)=>`<button type="button" class="thumbnail ${index===selectedImage?"active":""}" data-image-index="${index}" aria-pressed="${index===selectedImage}" aria-label="${escapeHTML(name)} image ${index+1}"><img src="${escapeHTML(safeImage(image))}" alt="" loading="lazy" decoding="async"></button>`).join("")}</div></section><section class="product-info-card"><span class="product-meta">${escapeHTML(product.brand||"")}</span><h1>${escapeHTML(name)}</h1>${mrp?`<div class="product-detail-mrp"><span>${escapeHTML(selectedUnitText())} MRP</span><strong>${mrp}</strong></div>`:""}<p>${escapeHTML(product.description?.[language()]||product.description?.en||product.description?.hi||"")}</p>${sizes.length?`<h2 class="detail-heading">${text.selectSize}</h2><div class="size-options" role="group" aria-label="${escapeHTML(text.selectSize)}">${sizes.map((size,index)=>`<button type="button" class="size-option ${index===selectedSizeIndex?"active":""}" data-size-index="${index}" aria-pressed="${index===selectedSizeIndex}">${escapeHTML(sizeName(size))}${sizeMrp(size,product)>0?` <span class="size-option-mrp">(${formatMrp(sizeMrp(size,product))})</span>`:""}</button>`).join("")}</div>`:""}<h2 class="detail-heading">${text.features}</h2><ul class="feature-list">${featureValues.map(feature=>`<li>${escapeHTML(feature)}</li>`).join("")}</ul><a class="secondary-btn detail-enquiry" id="product-enquiry" target="_blank" rel="noopener" href="#">${text.enquire}</a></section></div>`;
 
       target.querySelectorAll(".thumbnail").forEach(button=>button.addEventListener("click",()=>{selectedImage=Math.max(0,Number(button.dataset.imageIndex)||0);render()}));
       target.querySelectorAll(".thumbnail img").forEach(img=>img.addEventListener("error",()=>{img.src=fallbackImage;img.onerror=null},{once:true}));
