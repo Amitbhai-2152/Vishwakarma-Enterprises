@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Vishwakarma Enterprises — Intro Upload Slot</title>
+  <style>
+    * { box-sizing: border-box; }
+    html, body { width: 100%; height: 100%; margin: 0; }
+    body {
+      display: grid;
+      place-items: center;
+      padding: 24px;
+      color: #fff;
+      background: #050505;
+      font: 16px/1.6 system-ui, sans-serif;
+      text-align: center;
+    }
+    main { max-width: 620px; }
+    h1 { margin: 0 0 12px; font-size: clamp(26px, 5vw, 42px); }
+    p { color: #c8c8c8; }
+    code { color: #ffcf70; }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Intro HTML upload slot</h1>
+    <p>Replace <code>intro/index.html</code> with your finished logo intro HTML file.</p>
+    <p>Keep the intro disabled in <code>js/intro-config.js</code> until your HTML and supporting assets are uploaded.</p>
+  </main>
+  <script>
+    // This upload-slot placeholder is intentionally not an animated intro.
+    // Your finished intro should send VE_INTRO_READY when ready and
+    // VE_INTRO_FINISHED when its animation timeline has completed.
+    window.parent.postMessage("VE_INTRO_READY", window.location.origin);
+  </script>
+</body>
+</html>
