@@ -1,52 +1,34 @@
-# Upload your homepage intro HTML here
+# Vishwakarma Enterprises homepage intro
 
-## Exact upload location
+## Active intro file
 
-Replace this file with your finished intro HTML:
+The homepage currently loads:
 
-`intro/index.html`
+`intro/vishwakarma_enterprises_4k_intro_showcase.html`
 
-You can upload supporting files into this same `intro/` folder, for example:
+This is the HTML file uploaded for the logo intro. Its supporting visuals and animation are inline; it uses external Tailwind CSS and Google Fonts resources.
 
-- `intro/style.css`
-- `intro/animation.js`
-- `intro/images/logo.png`
-- `intro/audio/intro.mp3`
+## Playback behaviour
 
-Use relative paths in your HTML, such as `./style.css`, `./animation.js`, and `./images/logo.png`.
+- The intro starts automatically on every homepage visit.
+- The animation runs once (10 seconds) and then returns to the homepage.
+- It starts silently because browsers generally block audible autoplay.
+- The visitor can click **Enable sound + replay intro** to replay with sound.
+- The homepage has its own **Skip intro** control.
+- The intro sends `VE_INTRO_READY` when initialized and `VE_INTRO_FINISHED` when its timeline ends.
 
-## Tell the homepage when the intro is ready and finished
+## Upload a newer intro
 
-The homepage displays the intro in a full-screen iframe. To let the homepage know that the page is ready, add this to your intro HTML after its main elements are ready:
-
-```html
-<script>
-  window.parent.postMessage("VE_INTRO_READY", window.location.origin);
-</script>
-```
-
-When your final animation/timeline ends, call:
-
-```javascript
-window.parent.postMessage("VE_INTRO_FINISHED", window.location.origin);
-```
-
-You can put the second call in your animation's `animationend` handler or at the end of your timeline. Do not call it immediately on page load.
-
-A **Skip intro** button is also displayed above the intro. As a safety measure, the homepage reveals itself if the intro does not send its ready signal within 12 seconds, or if it runs longer than 90 seconds.
-
-## Activate after upload
-
-In `js/intro-config.js`, change:
-
-`enabled: false`
-
-to:
-
-`enabled: true`
-
-The intro is configured to play on every homepage visit. Keep the file disabled until your actual HTML intro and its assets are uploaded.
+Replace the active HTML file above. Keep all required relative assets inside the `intro/` folder and update their paths in the HTML.
 
 ## Quick rollback
 
-Change `enabled: true` back to `enabled: false` in `js/intro-config.js`. No homepage content needs to be removed.
+Open `js/intro-config.js` and change:
+
+`enabled: true`
+
+to:
+
+`enabled: false`
+
+The homepage immediately skips the intro and displays its regular content.
