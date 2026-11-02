@@ -1,15 +1,14 @@
 /*
  * Vishwakarma Enterprises — homepage HTML intro configuration
  *
- * Upload/replace your intro HTML at: intro/index.html
- * Keep enabled:false until your HTML file has been uploaded and verified.
+ * Active intro: intro/vishwakarma_enterprises_4k_intro_showcase.html
  * To disable the intro at any time, change enabled to false.
  */
 window.VE_INTRO_CONFIG = Object.freeze({
-  enabled: false,
+  enabled: true,
   playEveryVisit: true,
-  introSrc: "intro/index.html",
-  readyTimeoutMs: 12000,
-  maxDurationMs: 90000,
+  introSrc: "intro/vishwakarma_enterprises_4k_intro_showcase.html",
+  readyTimeoutMs: 25000,
+  maxDurationMs: 45000,
   fadeDurationMs: 650
 });
