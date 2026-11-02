@@ -1,14 +1,15 @@
 /*
- * Vishwakarma Enterprises — homepage logo intro configuration
+ * Vishwakarma Enterprises — homepage HTML intro configuration
  *
- * The intro stays disabled until the video file is uploaded.
- * To activate it later, change enabled to true.
- * To disable it instantly, change enabled back to false.
+ * Upload/replace your intro HTML at: intro/index.html
+ * Keep enabled:false until your HTML file has been uploaded and verified.
+ * To disable the intro at any time, change enabled to false.
  */
 window.VE_INTRO_CONFIG = Object.freeze({
   enabled: false,
   playEveryVisit: true,
-  videoSrc: "videos/logo-intro.mp4",
-  loadTimeoutMs: 20000,
+  introSrc: "intro/index.html",
+  readyTimeoutMs: 12000,
+  maxDurationMs: 90000,
   fadeDurationMs: 650
 });
