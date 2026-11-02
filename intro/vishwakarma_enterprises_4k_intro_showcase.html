@@ -1,0 +1,2156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>VISHWAKARMA ENTERPRISES — 4K Dolby-Grade 3D Logo & Title Reveal</title>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts: Montserrat (Geometric Architectural Sans matching the logo) & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Montserrat:wght@600;700;800;900&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --studio-light-top: #F7F8FA;
+      --studio-light-mid: #E8EAEF;
+      --studio-light-edge: #CFD3DC;
+      --void-dark-core: #0A1326;
+      --void-dark-edge: #02050B;
+      --cobalt-bright: #4692FF;
+      --cobalt-main: #0B48A8;
+      --cobalt-deep: #041D52;
+      --azure-wave: #0D78D6;
+      --cyan-filament: #38E8FF;
+      --gold-flare: #FFD166;
+    }
+
+    * {
+      box-sizing: border-box;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background-color: #02050B;
+      font-family: 'Montserrat', sans-serif;
+    }
+
+    /* ==================== 4K MASTER CINEMA VIEWPORT ==================== */
+    #viewport {
+      position: relative;
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      perspective: 1600px;
+      cursor: grab;
+    }
+    #viewport:active {
+      cursor: grabbing;
+    }
+
+    /* 1. Atmospheric Obsidian Studio Void (Act I & II + Dark Cinema Preset) */
+    #void-backdrop {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      background:
+        radial-gradient(circle at 52% 45%, rgba(14, 38, 86, 0.52) 0%, rgba(5, 13, 30, 0.88) 52%, #02040A 100%);
+      pointer-events: none;
+    }
+
+    /* Subtle Architectural Horizon Grid in the Dark Studio Void */
+    #cyber-grid-floor {
+      position: absolute;
+      inset: -35%;
+      z-index: 2;
+      background-image:
+        linear-gradient(rgba(56, 232, 255, 0.08) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(56, 232, 255, 0.08) 1px, transparent 1px);
+      background-size: 84px 84px;
+      background-position: center center;
+      transform: perspective(1000px) rotateX(68deg) translateY(210px) translateZ(-140px);
+      mask-image: radial-gradient(circle at 50% 50%, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.25) 48%, transparent 74%);
+      -webkit-mask-image: radial-gradient(circle at 50% 50%, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.25) 48%, transparent 74%);
+      pointer-events: none;
+      opacity: 0.75;
+    }
+
+    /* 2. Authentic Warm Alabaster-White Architectural Studio Backdrop (Matching Uploaded Logo Photo) */
+    #studio-backdrop {
+      position: absolute;
+      inset: 0;
+      z-index: 3;
+      background:
+        radial-gradient(circle at 79% 63%, rgba(255, 236, 195, 0.42) 0%, rgba(255, 224, 165, 0.12) 22%, transparent 45%),
+        radial-gradient(circle at 48% 42%, #FAFBFD 0%, #ECEDF2 48%, #DBDDE4 82%, #C6CAD4 100%);
+      pointer-events: none;
+      opacity: 0;
+      will-change: opacity, clip-path;
+    }
+
+    /* Subtle studio softbox paper/plaster micro-texture */
+    #studio-backdrop::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image:
+        repeating-linear-gradient(135deg, rgba(255,255,255,0.035) 0px, rgba(255,255,255,0.035) 1px, transparent 1px, transparent 4px);
+      pointer-events: none;
+    }
+
+    /* Background Canvas for Volumetric God-Rays, Hydro-Mist & Studio Dust Motes */
+    #bg-fx-canvas {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 4;
+      pointer-events: none;
+    }
+
+    /* Foreground Canvas for Optical Filament Sparks, Micro-Droplets & Anamorphic Glints */
+    #fg-fx-canvas {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 15;
+      pointer-events: none;
+    }
+
+    /* ==================== 3D HERO MONUMENT STAGE (1200 x 920) ==================== */
+    #stage-wrap {
+      position: relative;
+      width: min(94vw, 116vh);
+      aspect-ratio: 1200 / 920;
+      z-index: 8;
+      transform-style: preserve-3d;
+      will-change: transform;
+      pointer-events: none;
+    }
+
+    #master-logo-svg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      overflow: visible;
+    }
+
+    /* ==================== OPTICAL GOLDEN-WHITE ANAMORPHIC LENS FLARE AT (966, 568) ==================== */
+    /* Positioned at the exact top-right corner of the bottom 'E' segment: 966/1200 = 80.5%, 568/920 = 61.74% */
+    #lens-flare-rig {
+      position: absolute;
+      left: 80.5%;
+      top: 61.74%;
+      width: 0;
+      height: 0;
+      z-index: 14;
+      pointer-events: none;
+      transform-style: preserve-3d;
+      opacity: 0;
+    }
+
+    .flare-core-pinpoint {
+      position: absolute;
+      transform: translate(-50%, -50%);
+      width: 68px;
+      height: 68px;
+      border-radius: 50%;
+      background: radial-gradient(circle, #FFFFFF 0%, #FFFDF2 24%, rgba(255, 205, 105, 0.82) 52%, rgba(255, 150, 20, 0) 76%);
+      mix-blend-mode: screen;
+    }
+
+    .flare-warm-bloom {
+      position: absolute;
+      transform: translate(-50%, -50%);
+      width: 260px;
+      height: 190px;
+      border-radius: 50%;
+      background: radial-gradient(ellipse at center, rgba(255, 218, 132, 0.56) 0%, rgba(255, 176, 58, 0.22) 44%, transparent 74%);
+      mix-blend-mode: screen;
+    }
+
+    .flare-anamorphic-streak {
+      position: absolute;
+      transform: translate(-50%, -50%);
+      width: 520px;
+      height: 13px;
+      background: linear-gradient(90deg,
+        rgba(255, 180, 55, 0) 0%,
+        rgba(255, 202, 95, 0.52) 24%,
+        rgba(255, 246, 218, 0.96) 46%,
+        #FFFFFF 50%,
+        rgba(255, 246, 218, 0.96) 54%,
+        rgba(255, 202, 95, 0.52) 76%,
+        rgba(255, 180, 55, 0) 100%);
+      border-radius: 50%;
+      filter: blur(0.7px);
+      mix-blend-mode: screen;
+    }
+
+    .flare-anamorphic-needle {
+      position: absolute;
+      transform: translate(-50%, -50%);
+      width: 820px;
+      height: 3px;
+      background: linear-gradient(90deg,
+        transparent 0%,
+        rgba(255, 220, 140, 0.55) 30%,
+        #FFFFFF 50%,
+        rgba(255, 220, 140, 0.55) 70%,
+        transparent 100%);
+      mix-blend-mode: screen;
+    }
+
+    .flare-glint-diag-1, .flare-glint-diag-2 {
+      position: absolute;
+      width: 155px;
+      height: 2px;
+      background: linear-gradient(90deg, transparent 0%, rgba(255, 244, 210, 0.85) 50%, transparent 100%);
+      mix-blend-mode: screen;
+    }
+    .flare-glint-diag-1 { transform: translate(-50%, -50%) rotate(28deg); }
+    .flare-glint-diag-2 { transform: translate(-50%, -50%) rotate(-28deg); }
+
+    /* ==================== DOLBY PREMIERE SOUND UNLOCK OVERLAY ==================== */
+    #premiere-overlay {
+      transition: opacity 0.65s cubic-bezier(0.22, 1, 0.36, 1), visibility 0.65s;
+    }
+    #premiere-overlay.dismissed {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+    /* ==================== STUDIO DIRECTOR BAR & SCRUBBER ==================== */
+    input[type="range"].scrubber-track {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 100%;
+      height: 6px;
+      background: rgba(255, 255, 255, 0.16);
+      border-radius: 999px;
+      outline: none;
+      cursor: pointer;
+    }
+    input[type="range"].scrubber-track::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 15px;
+      height: 15px;
+      border-radius: 50%;
+      background: #FFD166;
+      border: 2px solid #FFFFFF;
+      box-shadow: 0 0 14px rgba(255, 209, 102, 0.95);
+      cursor: pointer;
+      transition: transform 0.15s ease;
+    }
+    input[type="range"].scrubber-track::-webkit-slider-thumb:hover {
+      transform: scale(1.25);
+    }
+
+    #hud-bar, #top-header {
+      transition: opacity 0.45s cubic-bezier(0.22, 1, 0.36, 1), transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    body.hud-hidden #hud-bar,
+    body.hud-hidden #top-header {
+      opacity: 0 !important;
+      pointer-events: none !important;
+    }
+    body.hud-hidden #hud-bar {
+      transform: translate(-50%, 28px);
+    }
+    body.hud-hidden #viewport {
+      cursor: none;
+    }
+  </style>
+</head>
+<body class="select-none">
+
+  <!-- ==================== PREMIERE LAUNCH GATE (UNLOCKS FULL CONCERT HALL WEB AUDIO FROM 0.00s) ==================== -->
+  <div id="premiere-overlay" class="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/60 backdrop-blur-md px-4">
+    <div class="relative max-w-lg w-full rounded-3xl bg-slate-950/90 border border-white/15 p-6 sm:p-8 text-center shadow-[0_25px_90px_rgba(0,0,0,0.85)]">
+      <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-amber-500/15 border border-amber-400/30 text-amber-300 text-[11px] font-mono uppercase tracking-widest mb-4">
+        <span class="w-2 h-2 rounded-full bg-amber-400 animate-pulse"></span>
+        4K Master Render • Stereo Hall Audio Engine
+      </div>
+      <h1 class="text-xl sm:text-2xl font-extrabold tracking-wider text-white uppercase">
+        Vishwakarma Enterprises
+      </h1>
+      <p class="text-xs sm:text-sm text-slate-300 mt-2 leading-relaxed">
+        Photorealistic 3D Beveled Monument, Real-Time <code class="text-cyan-300 font-mono">&lt;feSpecularLighting&gt;</code> Title Reveal &amp; Concert Hall Reverberant Soundtrack.
+      </p>
+      <div class="mt-6 flex flex-col sm:flex-row items-center justify-center gap-3">
+        <button id="btn-launch-premiere" class="w-full sm:w-auto px-6 py-3.5 rounded-2xl bg-gradient-to-r from-amber-400 via-amber-300 to-cyan-300 hover:from-amber-300 hover:to-cyan-200 text-slate-950 font-extrabold text-xs sm:text-sm tracking-wider uppercase shadow-[0_0_35px_rgba(255,209,102,0.5)] transition-all transform hover:scale-[1.03] active:scale-95 flex items-center justify-center gap-2.5">
+          <svg class="w-5 h-5 text-slate-950 shrink-0" fill="currentColor" viewBox="0 0 20 20">
+            <path d="M9.383 3.076A1 1 0 0110 4v12a1 1 0 01-1.707.707L4.586 13H2a1 1 0 01-1-1V8a1 1 0 011-1h2.586l3.707-3.707a1 1 0 011.09-.217zM14.657 2.929a1 1 0 011.414 0A9.972 9.972 0 0119 10a9.972 9.972 0 01-2.929 7.071 1 1 0 01-1.414-1.414A7.971 7.971 0 0017 10c0-2.21-.894-4.208-2.343-5.657a1 1 0 010-1.414z"/>
+          </svg>
+          <span>LAUNCH 4K CINEMA INTRO (WITH AUDIO)</span>
+        </button>
+        <button id="btn-launch-muted" class="w-full sm:w-auto px-4 py-3.5 rounded-2xl bg-white/10 hover:bg-white/15 border border-white/10 text-xs font-semibold text-slate-300 hover:text-white transition-all">
+          Watch Silent Preview
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== TOP FLOATING BROADCAST HEADER ==================== -->
+  <header id="top-header" class="fixed top-4 left-0 right-0 z-30 px-4 sm:px-7 flex items-center justify-between pointer-events-none">
+    <!-- Left Status Pill -->
+    <div class="pointer-events-auto flex items-center gap-3 px-4 py-2 rounded-full bg-slate-950/80 backdrop-blur-xl border border-white/15 text-xs text-slate-200 shadow-2xl">
+      <span class="relative flex h-2.5 w-2.5">
+        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75"></span>
+        <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-amber-400"></span>
+      </span>
+      <span class="font-bold tracking-wider text-white">VISHWAKARMA ENTERPRISES</span>
+      <span class="text-white/25 hidden md:inline">|</span>
+      <span id="act-status-text" class="font-mono text-[11px] text-amber-300 font-semibold hidden md:inline">
+        ACT I • OPTICAL FILAMENT GENESIS
+      </span>
+    </div>
+
+    <!-- Right Prominent Sound Replay & Clean 4K Capture Button -->
+    <div class="pointer-events-auto flex items-center gap-2.5">
+      <button id="btn-replay-sound" class="flex items-center gap-2 px-4 sm:px-5 py-2.5 rounded-full bg-gradient-to-r from-amber-400 via-amber-300 to-cyan-300 hover:from-amber-300 hover:to-cyan-200 text-slate-950 font-extrabold text-xs tracking-wider uppercase border border-white/40 shadow-xl transition-all transform hover:scale-105 active:scale-95">
+        <svg class="w-4 h-4 text-slate-950 shrink-0" fill="currentColor" viewBox="0 0 20 20">
+          <path d="M9.383 3.076A1 1 0 0110 4v12a1 1 0 01-1.707.707L4.586 13H2a1 1 0 01-1-1V8a1 1 0 011-1h2.586l3.707-3.707a1 1 0 011.09-.217zM14.657 2.929a1 1 0 011.414 0A9.972 9.972 0 0119 10a9.972 9.972 0 01-2.929 7.071 1 1 0 01-1.414-1.414A7.971 7.971 0 0017 10c0-2.21-.894-4.208-2.343-5.657a1 1 0 010-1.414z"/>
+        </svg>
+        <span id="cta-sound-label">REPLAY 4K INTRO WITH AUDIO</span>
+      </button>
+
+      <button id="btn-clean-capture" title="Hide UI for Pure 4K Screen Recording (Shortcut: H)" class="px-3.5 py-2.5 rounded-full bg-slate-950/80 hover:bg-slate-900 backdrop-blur-xl border border-white/15 text-xs font-semibold text-slate-200 hover:text-white transition-all flex items-center gap-1.5 shadow-xl">
+        <svg class="w-3.5 h-3.5 text-amber-300" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
+        </svg>
+        <span class="hidden lg:inline">Pure 4K (H)</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- ==================== 4K INTERACTIVE STAGE VIEWPORT ==================== -->
+  <main id="viewport" title="Move cursor for 3D Parallax & Real-Time Specular Light Shift • Click for Hydro-Gold Pulse">
+    <!-- 1. Obsidian Dark Studio Void & Perspective Horizon Grid -->
+    <div id="void-backdrop"></div>
+    <div id="cyber-grid-floor"></div>
+
+    <!-- 2. Authentic Warm Alabaster-White Architectural Studio Backdrop -->
+    <div id="studio-backdrop"></div>
+
+    <!-- 3. Background 4K Volumetric God-Rays & Atmospheric Particle Canvas -->
+    <canvas id="bg-fx-canvas"></canvas>
+
+    <!-- 4. Central 3D Hero Monument Stage (1200 x 920 Master Coordinate Space) -->
+    <div id="stage-wrap">
+
+      <!-- Signature Golden-White Anamorphic Lens Flare at Top-Right Corner of Lower 'E' Bar (966, 568) -->
+      <div id="lens-flare-rig">
+        <div class="flare-warm-bloom"></div>
+        <div class="flare-anamorphic-needle"></div>
+        <div class="flare-anamorphic-streak"></div>
+        <div class="flare-glint-diag-1"></div>
+        <div class="flare-glint-diag-2"></div>
+        <div class="flare-core-pinpoint"></div>
+      </div>
+
+      <!-- MASTER 1200x920 PHOTOREALISTIC 3D BEVELED LOGO & 3D EXTRUDED TYPOGRAPHY SVG -->
+      <svg id="master-logo-svg" viewBox="0 0 1200 920" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <!-- ========= 1. DIRECTIONAL 45° STUDIO SOFTBOX DROP SHADOW (MATCHING UPLOADED LOGO) ========= -->
+          <filter id="studio-ao-shadow" x="-25%" y="-20%" width="160%" height="165%" filterUnits="userSpaceOnUse">
+            <!-- Soft directional ambient shadow cast bottom-right & slightly left-bottom like studio cyclorama -->
+            <feDropShadow id="dyn-shadow-far" dx="14" dy="24" stdDeviation="16" flood-color="#050D1E" flood-opacity="0.26" result="farShadow" />
+            <feDropShadow id="dyn-shadow-mid" dx="5" dy="10" stdDeviation="6" flood-color="#050D1E" flood-opacity="0.30" result="midShadow" />
+            <feDropShadow dx="1" dy="3" stdDeviation="2" flood-color="#000000" flood-opacity="0.42" result="contactShadow" />
+            <feMerge>
+              <feMergeNode in="farShadow" />
+              <feMergeNode in="midShadow" />
+              <feMergeNode in="contactShadow" />
+              <feMergeNode in="SourceGraphic" />
+            </feMerge>
+          </filter>
+
+          <!-- ========= 2. REAL-TIME 3D <feSpecularLighting> + ANIMATED <fePointLight> SHADER ========= -->
+          <!-- Wraps dynamic 3D specular highlights across the logo bevels in real time at 60FPS -->
+          <filter id="realtime-logo-specular" x="-15%" y="-15%" width="130%" height="130%" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+            <feGaussianBlur in="SourceAlpha" stdDeviation="3.5" result="bevelBlur" />
+            <feSpecularLighting in="bevelBlur" surfaceScale="7" specularConstant="1.15" specularExponent="34" lighting-color="#FFF8E7" result="specOut">
+              <fePointLight id="logo-point-light" x="600" y="260" z="220" />
+            </feSpecularLighting>
+            <feComposite in="specOut" in2="SourceAlpha" operator="in" result="specMasked" />
+            <feMerge>
+              <feMergeNode in="SourceGraphic" />
+              <feMergeNode in="specMasked" />
+            </feMerge>
+          </filter>
+
+          <!-- ========= 3. HOLLYWOOD 3D TITLE ANAMORPHIC FOCUS-PULL & <feSpecularLighting> FILTER ========= -->
+          <!-- Combines horizontal anamorphic lens blur focus-pull + real-time moving point-light bevel sheen + studio floor shadow -->
+          <filter id="cinematic-title-shader" x="-25%" y="-35%" width="150%" height="180%" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+            <!-- Studio floor drop shadow -->
+            <feDropShadow id="title-floor-shadow" dx="4" dy="8" stdDeviation="4.5" flood-color="#040C1C" flood-opacity="0.28" result="floorShadow" />
+            <!-- Anamorphic horizontal focus blur (stdDeviation="blurX blurY" animated via JS) -->
+            <feGaussianBlur id="title-anamorphic-blur" in="SourceGraphic" stdDeviation="0 0" result="focusedText" />
+            <!-- 3D Bevel bump map for real-time specular lighting across every character -->
+            <feGaussianBlur in="SourceAlpha" stdDeviation="1.8" result="textBump" />
+            <feSpecularLighting id="title-spec-node" in="textBump" surfaceScale="5.5" specularConstant="1.45" specularExponent="28" lighting-color="#FFF6DC" result="textSpec">
+              <fePointLight id="title-point-light" x="200" y="765" z="110" />
+            </feSpecularLighting>
+            <feComposite in="textSpec" in2="SourceAlpha" operator="in" result="textSpecClipped" />
+            <feMerge>
+              <feMergeNode in="floorShadow" />
+              <feMergeNode in="focusedText" />
+              <feMergeNode in="textSpecClipped" />
+            </feMerge>
+          </filter>
+
+          <!-- Subtitle ("ENTERPRISES") Anamorphic Focus & Specular Filter -->
+          <filter id="cinematic-sub-shader" x="-25%" y="-35%" width="150%" height="180%" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+            <feDropShadow dx="3" dy="6" stdDeviation="3.5" flood-color="#031A38" flood-opacity="0.24" result="subShadow" />
+            <feGaussianBlur id="sub-anamorphic-blur" in="SourceGraphic" stdDeviation="0 0" result="subFocused" />
+            <feGaussianBlur in="SourceAlpha" stdDeviation="1.4" result="subBump" />
+            <feSpecularLighting in="subBump" surfaceScale="4.2" specularConstant="1.35" specularExponent="26" lighting-color="#9BE8FF" result="subSpec">
+              <fePointLight id="sub-point-light" x="600" y="835" z="95" />
+            </feSpecularLighting>
+            <feComposite in="subSpec" in2="SourceAlpha" operator="in" result="subSpecClipped" />
+            <feMerge>
+              <feMergeNode in="subShadow" />
+              <feMergeNode in="subFocused" />
+              <feMergeNode in="subSpecClipped" />
+            </feMerge>
+          </filter>
+
+          <!-- Optical Laser Filament Glow Filter -->
+          <filter id="laser-glow-filter" x="-40%" y="-40%" width="180%" height="180%">
+            <feGaussianBlur stdDeviation="4.5" result="blur1" />
+            <feGaussianBlur stdDeviation="12" result="blur2" />
+            <feMerge>
+              <feMergeNode in="blur2" />
+              <feMergeNode in="blur1" />
+              <feMergeNode in="SourceGraphic" />
+            </feMerge>
+          </filter>
+
+          <!-- ========= 4. COBALT BLUE 'V' 3D BEVEL & SOFTBOX SHADERS ========= -->
+          <linearGradient id="v-main-face-grad" x1="140" y1="95" x2="580" y2="555" gradientUnits="userSpaceOnUse">
+            <stop offset="0%" stop-color="#1458C8" />
+            <stop offset="48%" stop-color="#0B45A4" />
+            <stop offset="100%" stop-color="#06296E" />
+          </linearGradient>
+
+          <!-- Exact Diagonal Studio Softbox Glass Reflection Band cutting across the right arm of 'V' -->
+          <linearGradient id="v-softbox-gloss" x1="250" y1="95" x2="660" y2="425" gradientUnits="userSpaceOnUse">
+            <stop offset="0%" stop-color="#1660D2" />
+            <stop offset="50%" stop-color="#2D7CEF" />
+            <stop offset="86%" stop-color="#589FFF" />
+            <stop offset="100%" stop-color="#76B2FF" />
+          </linearGradient>
+
+          <linearGradient id="v-bevel-top" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="#74B5FF" />
+            <stop offset="100%" stop-color="#2976E8" />
+          </linearGradient>
+          <linearGradient id="v-bevel-left-outer" x1="90" y1="95" x2="335" y2="560" gradientUnits="userSpaceOnUse">
+            <stop offset="0%" stop-color="#4892FF" />
+            <stop offset="58%" stop-color="#1B64D9" />
+            <stop offset="100%" stop-color="#063078" />
+          </linearGradient>
+          <linearGradient id="v-bevel-left-inner" x1="252" y1="95" x2="398" y2="420" gradientUnits="userSpaceOnUse">
+            <stop offset="0%" stop-color="#7ABBFF" />
+            <stop offset="68%" stop-color="#2B75E6" />
+            <stop offset="100%" stop-color="#083B92" />
+          </linearGradient>
+          <linearGradient id="v-bevel-right-inner" x1="398" y1="420" x2="585" y2="95" gradientUnits="userSpaceOnUse">
+            <stop offset="0%" stop-color="#04225E" />
+            <stop offset="52%" stop-color="#236DE0" />
+            <stop offset="100%" stop-color="#72B4FF" />
+          </linearGradient>
+          <linearGradient id="v-bevel-right-outer" x1="730" y1="95" x2="465" y2="550" gradientUnits="userSpaceOnUse">
+            <stop offset="0%" stop-color="#083380" />
+            <stop offset="55%" stop-color="#05225E" />
+            <stop offset="100%" stop-color="#02133B" />
+          </linearGradient>
+
+          <clipPath id="clip-v-inset">
+            <path d="M 114 111 L 238 111 L 398 459 L 598 111 L 705 111 L 453 534 Q 398 538 347 544 Z" />
+          </clipPath>
+
+          <!-- ========= 5. OBSIDIAN BLACK 'E' 3D BEVEL & PIANO-GLOSS SHADERS ========= -->
+          <linearGradient id="e-obsidian-face" x1="650" y1="95" x2="990" y2="650" gradientUnits="userSpaceOnUse">
+            <stop offset="0%" stop-color="#191C24" />
+            <stop offset="52%" stop-color="#0D0F14" />
+            <stop offset="100%" stop-color="#050608" />
+          </linearGradient>
+
+          <linearGradient id="e-piano-reflection" x1="640" y1="95" x2="880" y2="415" gradientUnits="userSpaceOnUse">
+            <stop offset="0%" stop-color="#565C66" />
+            <stop offset="55%" stop-color="#3B404A" />
+            <stop offset="100%" stop-color="#252932" />
+          </linearGradient>
+
+          <!-- Golden-Lit Top Bevel on Bottom 'E' Bar (catching the Optical Lens Flare at 966, 568) -->
+          <linearGradient id="e-bot-golden-bevel" x1="725" y1="568" x2="972" y2="568" gradientUnits="userSpaceOnUse">
+            <stop offset="0%" stop-color="#555A64" />
+            <stop offset="66%" stop-color="#9E9382" />
+            <stop offset="88%" stop-color="#FFE5A3" />
+            <stop offset="100%" stop-color="#FFFFFF" />
+          </linearGradient>
+
+          <clipPath id="clip-e1-inset">
+            <polygon points="766,109 994,109 961,193 716,193" />
+          </clipPath>
+          <clipPath id="clip-e2-inset">
+            <polygon points="687,237 689,325 914,325 882,397 684,397 649,317" />
+          </clipPath>
+          <clipPath id="clip-e3-inset">
+            <path d="M 736 581 L 955 581 L 933 636 Q 818 658 701 627 Q 720 606 736 581 Z" />
+          </clipPath>
+
+          <!-- ========= 6. GLOSSY 3D WATER DROPLET SHADERS ========= -->
+          <linearGradient id="droplet-outer-grad" x1="560" y1="380" x2="690" y2="610" gradientUnits="userSpaceOnUse">
+            <stop offset="0%" stop-color="#62CEFF" />
+            <stop offset="45%" stop-color="#0E7AD9" />
+            <stop offset="85%" stop-color="#054C99" />
+            <stop offset="100%" stop-color="#033B7D" />
+          </linearGradient>
+
+          <linearGradient id="droplet-inner-grad" x1="575" y1="410" x2="675" y2="590" gradientUnits="userSpaceOnUse">
+            <stop offset="0%" stop-color="#72D8FF" />
+            <stop offset="48%" stop-color="#148EEB" />
+            <stop offset="100%" stop-color="#0455AB" />
+          </linearGradient>
+
+          <radialGradient id="droplet-caustic-glow" cx="56%" cy="40%" r="54%">
+            <stop offset="0%" stop-color="#A3E7FF" stop-opacity="0.86" />
+            <stop offset="58%" stop-color="#0088E8" stop-opacity="0.24" />
+            <stop offset="100%" stop-color="#00458A" stop-opacity="0" />
+          </radialGradient>
+
+          <!-- ========= 7. SWEEPING 3D AZURE WAVE SWOOSH SHADERS ========= -->
+          <linearGradient id="wave-main-grad" x1="75" y1="715" x2="968" y2="660" gradientUnits="userSpaceOnUse">
+            <stop offset="0%" stop-color="#0452A3" />
+            <stop offset="30%" stop-color="#0B75D6" />
+            <stop offset="65%" stop-color="#148DF2" />
+            <stop offset="90%" stop-color="#2BA9FF" />
+            <stop offset="100%" stop-color="#74CEFF" />
+          </linearGradient>
+
+          <linearGradient id="wave-upper-bevel" x1="90" y1="735" x2="968" y2="660" gradientUnits="userSpaceOnUse">
+            <stop offset="0%" stop-color="#52B3FF" />
+            <stop offset="40%" stop-color="#A0E2FF" />
+            <stop offset="78%" stop-color="#64C0FF" />
+            <stop offset="100%" stop-color="#CEFOFF" />
+          </linearGradient>
+
+          <linearGradient id="wave-lower-bevel" x1="75" y1="770" x2="968" y2="663" gradientUnits="userSpaceOnUse">
+            <stop offset="0%" stop-color="#022B61" />
+            <stop offset="50%" stop-color="#044996" />
+            <stop offset="100%" stop-color="#086AC7" />
+          </linearGradient>
+
+          <!-- ========= 8. MASTERPIECE 3D BEVELED TYPOGRAPHY SHADERS ("VISHWAKARMA" & "ENTERPRISES") ========= -->
+          <!-- Light Studio Mode: Polished Obsidian-Titanium Face with Top-Left Chamfer Sheen -->
+          <linearGradient id="title-face-studio" x1="200" y1="730" x2="880" y2="800" gradientUnits="userSpaceOnUse">
+            <stop offset="0%" stop-color="#2A2F3A" />
+            <stop offset="28%" stop-color="#14171F" />
+            <stop offset="62%" stop-color="#0A0C10" />
+            <stop offset="85%" stop-color="#232833" />
+            <stop offset="100%" stop-color="#0D1016" />
+          </linearGradient>
+
+          <!-- Dark Void Mode: Platinum-Silver Face for High-Contrast Visibility -->
+          <linearGradient id="title-face-dark" x1="200" y1="730" x2="880" y2="800" gradientUnits="userSpaceOnUse">
+            <stop offset="0%" stop-color="#FFFFFF" />
+            <stop offset="45%" stop-color="#E2E8F0" />
+            <stop offset="75%" stop-color="#94A3B8" />
+            <stop offset="100%" stop-color="#F8FAFC" />
+          </linearGradient>
+
+          <!-- Top-Left Bevel Rim Gradient for "VISHWAKARMA" -->
+          <linearGradient id="title-rim-bevel" x1="200" y1="725" x2="880" y2="795" gradientUnits="userSpaceOnUse">
+            <stop offset="0%" stop-color="#8A94A6" />
+            <stop offset="45%" stop-color="#CBD5E1" />
+            <stop offset="78%" stop-color="#FFE299" />
+            <stop offset="100%" stop-color="#64748B" />
+          </linearGradient>
+
+          <!-- Deep Cobalt-Azure 3D Beveled Face for "ENTERPRISES" -->
+          <linearGradient id="sub-face-azure" x1="260" y1="815" x2="820" y2="865" gradientUnits="userSpaceOnUse">
+            <stop offset="0%" stop-color="#0A6AD6" />
+            <stop offset="35%" stop-color="#0055B3" />
+            <stop offset="68%" stop-color="#0E7AE6" />
+            <stop offset="100%" stop-color="#044799" />
+          </linearGradient>
+
+          <!-- Bright Cyan Upper Bevel Rim for "ENTERPRISES" -->
+          <linearGradient id="sub-rim-cyan" x1="260" y1="810" x2="820" y2="860" gradientUnits="userSpaceOnUse">
+            <stop offset="0%" stop-color="#67C7FF" />
+            <stop offset="50%" stop-color="#B8EBFF" />
+            <stop offset="100%" stop-color="#38A8FF" />
+          </linearGradient>
+
+          <!-- Moving Diamond Specular Glint Gradient across Typography & Monument -->
+          <linearGradient id="holo-sweep-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0" />
+            <stop offset="44%" stop-color="#FFFFFF" stop-opacity="0" />
+            <stop offset="48%" stop-color="#9BE8FF" stop-opacity="0.48" />
+            <stop offset="50%" stop-color="#FFFFFF" stop-opacity="0.96" />
+            <stop offset="52%" stop-color="#FFE299" stop-opacity="0.52" />
+            <stop offset="56%" stop-color="#FFFFFF" stop-opacity="0" />
+            <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0" />
+          </linearGradient>
+
+          <clipPath id="clip-all-3d-monuments">
+            <path d="M 90 95 L 252 95 L 398 420 L 585 95 L 730 95 L 465 550 Q 398 553 335 560 Z" />
+            <polygon points="755,95 1015,95 975,207 695,207" />
+            <polygon points="698,221 700,313 935,313 895,410 675,410 632,315" />
+            <path d="M 725 568 L 972 568 L 945 650 Q 818 674 682 638 Q 705 608 725 568 Z" />
+            <path d="M 624 370 C 646 417, 708 495, 708 553 C 708 601, 670 635, 624 635 C 578 635, 540 601, 540 553 C 540 495, 602 417, 624 370 Z" />
+            <path d="M 75 770 C 188 650, 304 591, 432 593 C 562 595, 665 659, 782 661 C 860 663, 922 653, 968 637 C 918 697, 834 733, 730 729 C 612 725, 520 673, 408 677 C 272 681, 162 717, 75 770 Z" />
+          </clipPath>
+        </defs>
+
+        <!-- ========================================================================= -->
+        <!-- MASTER 3D SPECULAR-LIT LOGO MONUMENT GROUP                                -->
+        <!-- ========================================================================= -->
+        <g id="logo-specular-wrapper" filter="url(#realtime-logo-specular)">
+
+          <!-- LAYER A: 3D COBALT BLUE 'V' MONUMENT (LEFT) -->
+          <g id="monument-v" filter="url(#studio-ao-shadow)" style="transform-origin: 410px 327px;">
+            <!-- Deep 3D Extruded Side/Bottom Wall -->
+            <path d="M 82 103 L 90 95 L 335 560 L 465 550 L 458 560 Q 392 564 326 571 L 82 103 Z" fill="#021338" />
+
+            <!-- Main Geometric Outer Silhouette -->
+            <path d="M 90 95 L 252 95 L 398 420 L 585 95 L 730 95 L 465 550 Q 398 553 335 560 Z" fill="url(#v-main-face-grad)" />
+
+            <!-- 3D Chamfered Bevel Facets -->
+            <polygon points="90,95 252,95 238,111 114,111" fill="url(#v-bevel-top)" />
+            <polygon points="90,95 114,111 347,544 335,560" fill="url(#v-bevel-left-outer)" />
+            <polygon points="252,95 398,420 398,459 238,111" fill="url(#v-bevel-left-inner)" />
+            <polygon points="398,420 585,95 598,111 398,459" fill="url(#v-bevel-right-inner)" />
+            <polygon points="585,95 730,95 705,111 598,111" fill="url(#v-bevel-top)" />
+            <polygon points="730,95 465,550 453,534 705,111" fill="url(#v-bevel-right-outer)" />
+            <path d="M 335 560 Q 398 553 465 550 L 453 534 Q 398 538 347 544 Z" fill="#031847" />
+
+            <!-- Inset Front Face with Signature Diagonal Studio Softbox Reflection -->
+            <g clip-path="url(#clip-v-inset)">
+              <rect x="85" y="90" width="660" height="480" fill="url(#v-main-face-grad)" />
+              <g id="v-softbox-reflection-group">
+                <path d="M 85 90 L 740 90 L 740 267 C 605 297, 505 427, 422 443 C 335 459, 288 405, 215 417 L 85 300 Z" fill="url(#v-softbox-gloss)" opacity="0.95" />
+                <path d="M 255 417 C 335 449, 398 453, 462 407 C 525 360, 602 300, 705 270" stroke="#96C6FF" stroke-width="2.2" stroke-opacity="0.56" fill="none" />
+              </g>
+            </g>
+
+            <!-- Razor Specular Rim Highlight -->
+            <polyline points="114,111 238,111 398,459 598,111 705,111" stroke="#A3CFFF" stroke-width="1.6" stroke-opacity="0.72" fill="none" />
+          </g>
+
+          <!-- LAYER B: 3-PIECE GLOSSY OBSIDIAN BLACK 'E' MONUMENT (RIGHT) -->
+          <g id="monument-e" filter="url(#studio-ao-shadow)">
+            <!-- SEGMENT E1: TOP SLANTED PARALLELOGRAM BAR -->
+            <g id="e-seg-top" style="transform-origin: 855px 151px;">
+              <polygon points="748,102 755,95 695,207 975,207 968,215 687,215" fill="#030406" />
+              <polygon points="755,95 1015,95 975,207 695,207" fill="url(#e-obsidian-face)" />
+              <!-- 3D Chamfer Facets -->
+              <polygon points="755,95 1015,95 994,109 766,109" fill="#6D737E" />
+              <polygon points="755,95 766,109 716,193 695,207" fill="#525762" />
+              <polygon points="1015,95 975,207 961,193 994,109" fill="#171A20" />
+              <polygon points="695,207 975,207 961,193 716,193" fill="#07080B" />
+              <!-- Two-Tone Piano-Black Diagonal Studio Reflection -->
+              <g clip-path="url(#clip-e1-inset)">
+                <rect x="690" y="95" width="330" height="115" fill="url(#e-obsidian-face)" />
+                <polygon id="e1-gloss-poly" points="690,93 862,93 856,210 690,210" fill="url(#e-piano-reflection)" />
+              </g>
+              <polyline points="716,193 766,109 994,109" stroke="#B2BAC6" stroke-width="1.4" stroke-opacity="0.65" fill="none" />
+            </g>
+
+            <!-- SEGMENT E2: MIDDLE CHEVRON SPINE + HORIZONTAL BAR -->
+            <g id="e-seg-mid" style="transform-origin: 785px 315px;">
+              <polygon points="691,228 698,221 632,315 675,410 895,410 888,418 668,418 624,317" fill="#030406" />
+              <polygon points="698,221 700,313 935,313 895,410 675,410 632,315" fill="url(#e-obsidian-face)" />
+              <!-- 3D Chamfer Facets -->
+              <polygon points="632,315 698,221 687,237 649,317" fill="#646A75" />
+              <polygon points="698,221 700,313 689,325 687,237" fill="#2E323B" />
+              <polygon points="700,313 935,313 914,325 689,325" fill="#606670" />
+              <polygon points="935,313 895,410 882,397 914,325" fill="#16191F" />
+              <polygon points="675,410 895,410 882,397 684,397" fill="#06070A" />
+              <polygon points="632,315 675,410 684,397 649,317" fill="#1F232A" />
+              <!-- Piano-Black Studio Reflection -->
+              <g clip-path="url(#clip-e2-inset)">
+                <rect x="630" y="220" width="310" height="195" fill="url(#e-obsidian-face)" />
+                <polygon id="e2-gloss-poly" points="630,220 850,220 838,415 630,415" fill="url(#e-piano-reflection)" />
+              </g>
+              <polyline points="649,317 687,237 689,325 914,325" stroke="#B2BAC6" stroke-width="1.4" stroke-opacity="0.6" fill="none" />
+            </g>
+
+            <!-- SEGMENT E3: BOTTOM FLOATING BAR (WITH GOLDEN FLARE CORNER AT 966, 568) -->
+            <g id="e-seg-bot" style="transform-origin: 830px 610px;">
+              <path d="M 718 575 L 725 568 Q 705 608 682 638 Q 818 674 945 650 L 938 658 Q 811 682 674 645 Q 698 614 718 575 Z" fill="#030406" />
+              <path d="M 725 568 L 972 568 L 945 650 Q 818 674 682 638 Q 705 608 725 568 Z" fill="url(#e-obsidian-face)" />
+              <!-- Top Bevel lit by Golden Anamorphic Flare -->
+              <polygon points="725,568 972,568 955,581 736,581" fill="url(#e-bot-golden-bevel)" />
+              <!-- Left Curved Bevel -->
+              <path d="M 725 568 L 736 581 Q 720 606 701 627 L 682 638 Q 705 608 725 568 Z" fill="#525761" />
+              <!-- Right Golden-Lit Bevel -->
+              <polygon points="972,568 945,650 933,636 955,581" fill="#A38D6E" />
+              <!-- Bottom Curved Bevel -->
+              <path d="M 682 638 Q 818 674 945 650 L 933 636 Q 818 658 701 627 Z" fill="#08090C" />
+              <!-- Inset Face with Golden Corner Hotspot -->
+              <g clip-path="url(#clip-e3-inset)">
+                <rect x="680" y="567" width="300" height="110" fill="url(#e-obsidian-face)" />
+                <polygon points="680,567 826,567 802,677 680,677" fill="url(#e-piano-reflection)" opacity="0.88" />
+                <circle cx="962" cy="574" r="54" fill="#FFD166" opacity="0.42" />
+              </g>
+              <polyline points="701,627 736,581 955,581" stroke="#FFEDBD" stroke-width="1.5" stroke-opacity="0.82" fill="none" />
+            </g>
+          </g>
+
+          <!-- LAYER C: THE GLOSSY 3D WATER DROPLET (NESTED IN CENTRAL POCKET) -->
+          <g id="monument-droplet" filter="url(#studio-ao-shadow)" style="transform-origin: 624px 520px;">
+            <!-- 3D Extruded Outer Rim -->
+            <path d="M 618 377 C 640 424, 702 501, 702 559 C 702 607, 664 642, 618 642 C 572 642, 534 607, 534 559 C 534 501, 596 424, 618 377 Z" fill="#02295E" />
+            <!-- Main Glossy Cerulean-to-Azure Body -->
+            <path d="M 624 370 C 646 417, 708 495, 708 553 C 708 601, 670 635, 624 635 C 578 635, 540 601, 540 553 C 540 495, 602 417, 624 370 Z" fill="url(#droplet-outer-grad)" />
+            <!-- 3D Chamfered Inner Rim Bevel -->
+            <path d="M 624 392 C 642 433, 694 499, 694 551 C 694 591, 662 621, 624 621 C 586 621, 554 591, 554 551 C 554 499, 606 433, 624 392 Z" fill="url(#droplet-inner-grad)" stroke="#82DCFF" stroke-width="1.5" stroke-opacity="0.75" />
+            <!-- Animated Caustic Volume Shimmer -->
+            <ellipse id="droplet-caustic-ellipse" cx="638" cy="533" rx="52" ry="68" fill="url(#droplet-caustic-glow)" />
+            <!-- Exact Crisp White Inner Crescent Highlight Wrapping Lower-Left Interior Curve -->
+            <path d="M 615 425 C 587 477, 570 517, 570 551 C 570 585, 596 605, 628 604 C 649 603, 666 593, 676 578 C 662 586, 647 588, 632 586 C 602 582, 587 560, 588 533 C 589 505, 602 466, 615 425 Z" fill="#FFFFFF" filter="drop-shadow(0px 2px 4px rgba(2,41,94,0.45))" />
+            <!-- Razor Specular Left Rim Glint -->
+            <path d="M 623 381 C 605 421, 557 491, 550 543" stroke="#C2EEFF" stroke-width="2.4" stroke-linecap="round" stroke-opacity="0.85" fill="none" />
+          </g>
+
+          <!-- LAYER D: THE SWEEPING 3D AZURE WAVE SWOOSH (BASE) -->
+          <g id="monument-wave" filter="url(#studio-ao-shadow)" style="transform-origin: 520px 695px;">
+            <!-- 3D Extruded Under-Lip -->
+            <path d="M 70 777 C 188 657, 304 598, 432 600 C 562 602, 665 666, 782 668 C 860 670, 922 660, 968 643 C 916 704, 832 740, 728 736 C 610 732, 518 680, 406 684 C 270 688, 160 724, 70 777 Z" fill="#022557" />
+            <!-- Main Wave Body -->
+            <path id="wave-body-path" d="M 75 770 C 188 650, 304 591, 432 593 C 562 595, 665 659, 782 661 C 860 663, 922 653, 968 637 C 918 697, 834 733, 730 729 C 612 725, 520 673, 408 677 C 272 681, 162 717, 75 770 Z" fill="url(#wave-main-grad)" />
+            <!-- Upper Glossy 3D Beveled Crest Facet -->
+            <path d="M 75 770 C 188 650, 304 591, 432 593 C 562 595, 665 659, 782 661 C 860 663, 922 653, 968 637 C 920 664, 855 675, 777 674 C 659 672, 558 609, 432 607 C 306 605, 192 662, 75 770 Z" fill="url(#wave-upper-bevel)" />
+            <!-- Lower Shadowed 3D Beveled Belly Facet -->
+            <path d="M 75 770 C 162 717, 272 681, 408 677 C 520 673, 612 725, 730 729 C 834 733, 918 697, 968 637 C 912 686, 830 718, 730 714 C 614 710, 522 659, 408 663 C 272 667, 164 706, 75 770 Z" fill="url(#wave-lower-bevel)" />
+            <!-- Bright Cyan-White Inner Lower-Right Bevel Highlight (matching reference wave edge) -->
+            <path d="M 105 741 C 204 645, 312 598, 432 600 C 560 602, 663 665, 782 667 C 856 668, 916 658, 963 640" stroke="#E4F7FF" stroke-width="2.2" stroke-linecap="round" stroke-opacity="0.88" fill="none" />
+          </g>
+
+          <!-- LAYER E: REAL-TIME SPECULAR SOFTBOX SWEEP ACROSS ALL 3D BEVELS -->
+          <g clip-path="url(#clip-all-3d-monuments)">
+            <rect id="holo-sweep-rect" x="-950" y="-200" width="680" height="1300" fill="url(#holo-sweep-grad)" transform="rotate(24 600 450)" opacity="0" />
+          </g>
+        </g>
+
+        <!-- ========================================================================= -->
+        <!-- LAYER F: REGISTERED TRADEMARK '®' SYMBOL AT TOP-RIGHT (1076, 56)          -->
+        <!-- ========================================================================= -->
+        <g id="monument-reg" style="transform-origin: 1076px 56px;" opacity="0">
+          <circle cx="1076" cy="56" r="28" stroke="#11151C" stroke-width="5.6" fill="none" class="reg-ink" />
+          <path d="M 1065 72 L 1065 40 L 1079 40 C 1086 40, 1091 43, 1091 49.5 C 1091 55, 1087 58, 1080 58 L 1070 58 M 1079 58 L 1090 72" stroke="#11151C" stroke-width="5.3" stroke-linecap="round" stroke-linejoin="round" fill="none" class="reg-ink" />
+        </g>
+
+        <!-- ========================================================================= -->
+        <!-- LAYER G: MASTERPIECE 3D EXTRUDED & SPECULAR-LIT TYPOGRAPHY SYSTEM         -->
+        <!-- Centered beneath the Wave Swoosh at X=538 (matching the exact logo photo) -->
+        <!-- ========================================================================= -->
+        <g id="svg-master-typography">
+          <!-- 1) "VISHWAKARMA" 10-LAYER 3D EXTRUDED MONOLITH + REAL-TIME SPECULAR SHADER -->
+          <g id="title-3d-group" filter="url(#cinematic-title-shader)" opacity="0">
+            <!-- 3D Extruded Depth Stack (populated by JS for crisp 10-layer 3D beveling) -->
+            <g id="title-extrusion-stack"></g>
+            <!-- Top-Left Chamfer Rim Highlight Layer -->
+            <text id="title-chamfer-rim" x="538" y="791.2" text-anchor="middle" font-family="'Montserrat', sans-serif" font-weight="800" font-size="63" letter-spacing="4.2" fill="none" stroke="url(#title-rim-bevel)" stroke-width="1.5" opacity="0.88">VISHWAKARMA</text>
+            <!-- Main Metallic Obsidian-Titanium Front Face -->
+            <text id="title-front-face" x="538" y="792" text-anchor="middle" font-family="'Montserrat', sans-serif" font-weight="800" font-size="63" letter-spacing="4.2" fill="url(#title-face-studio)">VISHWAKARMA</text>
+          </g>
+
+          <!-- Optical Laser Filament Edge-Trace Overlay for "VISHWAKARMA" -->
+          <text id="title-laser-trace" x="538" y="792" text-anchor="middle" font-family="'Montserrat', sans-serif" font-weight="800" font-size="63" letter-spacing="4.2" fill="none" stroke="#FFE299" stroke-width="2.0" stroke-dasharray="900" stroke-dashoffset="900" filter="url(#laser-glow-filter)" opacity="0">VISHWAKARMA</text>
+
+          <!-- 2) "ENTERPRISES" 3D BEVELED AZURE SUBTITLE + ANAMORPHIC TRACKING REVEAL -->
+          <g id="sub-3d-group" filter="url(#cinematic-sub-shader)" opacity="0">
+            <!-- 3D Extruded Azure Depth Stack -->
+            <g id="sub-extrusion-stack"></g>
+            <!-- Upper Cyan Bevel Rim -->
+            <text id="sub-chamfer-rim" x="545" y="857.2" text-anchor="middle" font-family="'Montserrat', sans-serif" font-weight="700" font-size="45" letter-spacing="14.5" fill="none" stroke="url(#sub-rim-cyan)" stroke-width="1.2" opacity="0.85">ENTERPRISES</text>
+            <!-- Main Deep Cobalt-Azure Front Face -->
+            <text id="sub-front-face" x="545" y="858" text-anchor="middle" font-family="'Montserrat', sans-serif" font-weight="700" font-size="45" letter-spacing="14.5" fill="url(#sub-face-azure)">ENTERPRISES</text>
+          </g>
+
+          <!-- Optical Cyan Filament Trace Overlay for "ENTERPRISES" -->
+          <text id="sub-laser-trace" x="545" y="858" text-anchor="middle" font-family="'Montserrat', sans-serif" font-weight="700" font-size="45" letter-spacing="14.5" fill="none" stroke="#38E8FF" stroke-width="1.7" stroke-dasharray="750" stroke-dashoffset="750" filter="url(#laser-glow-filter)" opacity="0">ENTERPRISES</text>
+        </g>
+
+        <!-- ========================================================================= -->
+        <!-- LAYER H: ACT I DUAL HIGH-ENERGY LASER CAD BLUEPRINT ETCHING PATHS         -->
+        <!-- ========================================================================= -->
+        <g id="laser-blueprint-group" filter="url(#laser-glow-filter)">
+          <!-- Electric Cyan Laser Paths ('V', Droplet & Wave) -->
+          <path id="laser-path-v" d="M 90 95 L 252 95 L 398 420 L 585 95 L 730 95 L 465 550 Q 398 553 335 560 Z" stroke="#38E8FF" stroke-width="3.0" fill="none" />
+          <path id="laser-path-droplet" d="M 624 370 C 646 417, 708 495, 708 553 C 708 601, 670 635, 624 635 C 578 635, 540 601, 540 553 C 540 495, 602 417, 624 370 Z" stroke="#38E8FF" stroke-width="2.8" fill="none" />
+          <path id="laser-path-wave" d="M 75 770 C 188 650, 304 591, 432 593 C 562 595, 665 659, 782 661 C 860 663, 922 653, 968 637 C 918 697, 834 733, 730 729 C 612 725, 520 673, 408 677 C 272 681, 162 717, 75 770 Z" stroke="#38E8FF" stroke-width="2.6" fill="none" />
+
+          <!-- Solar Gold Laser Paths (3 Segments of 'E') -->
+          <polygon id="laser-path-e1" points="755,95 1015,95 975,207 695,207" stroke="#FFD166" stroke-width="2.8" fill="none" />
+          <polygon id="laser-path-e2" points="698,221 700,313 935,313 895,410 675,410 632,315" stroke="#FFD166" stroke-width="2.8" fill="none" />
+          <path id="laser-path-e3" d="M 725 568 L 972 568 L 945 650 Q 818 674 682 638 Q 705 608 725 568 Z" stroke="#FFD166" stroke-width="2.8" fill="none" />
+        </g>
+      </svg>
+
+    </div>
+
+    <!-- 5. Foreground Optical Filament Sparks, Micro-Droplets & Click Shockwave Canvas -->
+    <canvas id="fg-fx-canvas"></canvas>
+  </main>
+
+  <!-- ==================== AUTO-HIDING BROADCAST DIRECTOR BAR ==================== -->
+  <footer id="hud-bar" class="fixed bottom-4 left-1/2 -translate-x-1/2 z-30 w-[96vw] max-w-5xl pointer-events-auto">
+    <div class="rounded-2xl bg-slate-950/85 backdrop-blur-2xl border border-white/15 shadow-2xl px-4 py-3 sm:px-6 sm:py-3.5 text-slate-200">
+      
+      <!-- Top Row: Act Jump Markers & Interactive Scrubber (0.00s - 10.00s) -->
+      <div class="flex flex-col gap-1.5 mb-2.5">
+        <div class="grid grid-cols-4 text-[10px] sm:text-[11px] font-mono tracking-wider text-slate-400">
+          <button data-seek="0.0" class="act-marker text-left hover:text-cyan-300 transition-colors flex items-center gap-1.5">
+            <span class="w-2 h-2 rounded-full bg-cyan-400 inline-block"></span>
+            <span>0.0s • I: LASER FILAMENT</span>
+          </button>
+          <button data-seek="2.4" class="act-marker text-left hover:text-blue-400 transition-colors flex items-center gap-1.5">
+            <span class="w-2 h-2 rounded-full bg-blue-500 inline-block"></span>
+            <span>2.4s • II: 3D MONOLITHS</span>
+          </button>
+          <button data-seek="5.0" class="act-marker text-left hover:text-amber-300 transition-colors flex items-center gap-1.5">
+            <span class="w-2 h-2 rounded-full bg-amber-400 inline-block"></span>
+            <span>5.0s • III: 3D TITLE &amp; FLARE</span>
+          </button>
+          <button data-seek="7.8" class="act-marker text-right sm:text-left hover:text-emerald-300 transition-colors flex items-center justify-end sm:justify-start gap-1.5">
+            <span class="w-2 h-2 rounded-full bg-emerald-400 inline-block"></span>
+            <span>7.8s • IV: 4K STUDIO LOCK</span>
+          </button>
+        </div>
+
+        <div class="flex items-center gap-3">
+          <input id="timeline-scrubber" type="range" min="0" max="10.0" step="0.01" value="0" class="scrubber-track" />
+          <div id="timecode-display" class="font-mono text-xs text-amber-300 shrink-0 w-36 text-right font-semibold">
+            00.00s / 10.00s
+          </div>
+        </div>
+      </div>
+
+      <!-- Bottom Row: Transport, Visual Theme Switcher, Speed & Sound Controls -->
+      <div class="flex flex-wrap items-center justify-between gap-2 pt-2 border-t border-white/10">
+        
+        <!-- Left: Play/Pause, Replay, Sound Toggle -->
+        <div class="flex items-center gap-2">
+          <button id="btn-play-pause" class="flex items-center justify-center w-9 h-9 rounded-xl bg-amber-400 hover:bg-amber-300 text-slate-950 font-bold transition-all shadow-lg" title="Play / Pause (Space)">
+            <svg id="icon-pause" class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zM7 8a1 1 0 012 0v4a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v4a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd" />
+            </svg>
+            <svg id="icon-play" class="w-4 h-4 hidden" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd" />
+            </svg>
+          </button>
+
+          <button id="btn-restart" class="px-3 py-1.5 rounded-xl bg-white/10 hover:bg-white/20 text-xs font-semibold text-white transition-all flex items-center gap-1.5" title="Restart Intro (R)">
+            <svg class="w-3.5 h-3.5 text-amber-300" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+            </svg>
+            <span>Restart</span>
+          </button>
+
+          <button id="btn-sound-toggle" class="px-3 py-1.5 rounded-xl bg-white/10 hover:bg-white/20 text-xs font-semibold text-slate-200 transition-all flex items-center gap-1.5" title="Toggle Stereo Hall Cinema Sound (M)">
+            <span id="sound-indicator-dot" class="w-2 h-2 rounded-full bg-slate-500"></span>
+            <span id="sound-toggle-text">Hall Audio: OFF</span>
+          </button>
+        </div>
+
+        <!-- Center: Visual Theme Switcher (Genesis Reveal / Pure Studio 4K / Obsidian Gold Cinema) -->
+        <div class="flex items-center bg-black/50 p-1 rounded-xl border border-white/10">
+          <button data-mode="genesis" class="mode-btn px-2.5 py-1 rounded-lg text-[11px] font-bold bg-amber-400 text-slate-950 transition-all">
+            Genesis Reveal (Dark ➔ Studio)
+          </button>
+          <button data-mode="studio" class="mode-btn px-2.5 py-1 rounded-lg text-[11px] font-medium text-slate-300 hover:text-white transition-all">
+            Pure Studio 4K
+          </button>
+          <button data-mode="obsidian" class="mode-btn px-2.5 py-1 rounded-lg text-[11px] font-medium text-slate-300 hover:text-white transition-all">
+            Obsidian Gold Cinema
+          </button>
+        </div>
+
+        <!-- Right: Speed Selector, Loop & Fullscreen -->
+        <div class="flex items-center gap-1.5">
+          <button id="btn-speed" class="px-2.5 py-1.5 rounded-xl bg-white/10 hover:bg-white/20 text-xs font-mono text-amber-300 transition-all" title="Toggle 0.5x Slow-Mo / 1.0x Cinema">
+            1.0x Cinema
+          </button>
+          <button id="btn-loop" class="px-2.5 py-1.5 rounded-xl bg-amber-500/20 border border-amber-400/40 text-xs font-mono text-amber-300 transition-all" title="Toggle Auto-Loop">
+            Loop: ON
+          </button>
+          <button id="btn-fullscreen" class="p-2 rounded-xl bg-white/10 hover:bg-white/20 text-slate-200 transition-all" title="Fullscreen (F)">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4" />
+            </svg>
+          </button>
+        </div>
+
+      </div>
+    </div>
+  </footer>
+
+  <!-- ==================== MASTER 4K ANIMATION, SPECULAR SHADERS & CONVOLUTION AUDIO ENGINE ==================== -->
+  <script>
+    window.onload = function () {
+      /* ==========================================================================
+         1. MASTER CONFIGURATION & STATE (10.00 SECONDS @ 60FPS)
+         ========================================================================== */
+      const TOTAL_DURATION = 10.0;
+      const state = {
+        t: 0.0,
+        playing: true,
+        speed: 1.0,
+        loop: true,
+        visualMode: 'genesis', // 'genesis' | 'studio' | 'obsidian'
+        soundEnabled: false,
+        scrubbing: false,
+        mouseX: 0,
+        mouseY: 0,
+        smoothX: 0,
+        smoothY: 0,
+        lastTick: performance.now(),
+        cues: {
+          act1Braam: false,
+          monolithV: false,
+          monolithE1: false,
+          monolithE2: false,
+          monolithE3: false,
+          hydroWave: false,
+          flareAndTitleResolve: false,
+          subTitleShimmer: false
+        }
+      };
+
+      /* ==========================================================================
+         2. DOM ELEMENTS & 10-LAYER 3D EXTRUDED SVG TYPOGRAPHY BUILDER
+         ========================================================================== */
+      const dom = {
+        premiereOverlay: document.getElementById('premiere-overlay'),
+        btnLaunchPremiere: document.getElementById('btn-launch-premiere'),
+        btnLaunchMuted: document.getElementById('btn-launch-muted'),
+        viewport: document.getElementById('viewport'),
+        studioBackdrop: document.getElementById('studio-backdrop'),
+        cyberGrid: document.getElementById('cyber-grid-floor'),
+        stageWrap: document.getElementById('stage-wrap'),
+        lensFlareRig: document.getElementById('lens-flare-rig'),
+        logoPointLight: document.getElementById('logo-point-light'),
+        titlePointLight: document.getElementById('title-point-light'),
+        subPointLight: document.getElementById('sub-point-light'),
+        titleAnamorphicBlur: document.getElementById('title-anamorphic-blur'),
+        subAnamorphicBlur: document.getElementById('sub-anamorphic-blur'),
+        monumentV: document.getElementById('monument-v'),
+        vSoftboxGroup: document.getElementById('v-softbox-reflection-group'),
+        eSegTop: document.getElementById('e-seg-top'),
+        eSegMid: document.getElementById('e-seg-mid'),
+        eSegBot: document.getElementById('e-seg-bot'),
+        e1Gloss: document.getElementById('e1-gloss-poly'),
+        e2Gloss: document.getElementById('e2-gloss-poly'),
+        monumentDroplet: document.getElementById('monument-droplet'),
+        dropletCaustic: document.getElementById('droplet-caustic-ellipse'),
+        monumentWave: document.getElementById('monument-wave'),
+        waveBodyPath: document.getElementById('wave-body-path'),
+        holoSweepRect: document.getElementById('holo-sweep-rect'),
+        monumentReg: document.getElementById('monument-reg'),
+        regInks: document.querySelectorAll('.reg-ink'),
+        title3dGroup: document.getElementById('title-3d-group'),
+        titleExtrusionStack: document.getElementById('title-extrusion-stack'),
+        titleFrontFace: document.getElementById('title-front-face'),
+        titleChamferRim: document.getElementById('title-chamfer-rim'),
+        titleLaserTrace: document.getElementById('title-laser-trace'),
+        sub3dGroup: document.getElementById('sub-3d-group'),
+        subExtrusionStack: document.getElementById('sub-extrusion-stack'),
+        subFrontFace: document.getElementById('sub-front-face'),
+        subChamferRim: document.getElementById('sub-chamfer-rim'),
+        subLaserTrace: document.getElementById('sub-laser-trace'),
+        laserGroup: document.getElementById('laser-blueprint-group'),
+        laserPaths: [
+          { el: document.getElementById('laser-path-v'), color: '#38E8FF' },
+          { el: document.getElementById('laser-path-e1'), color: '#FFD166' },
+          { el: document.getElementById('laser-path-e2'), color: '#FFD166' },
+          { el: document.getElementById('laser-path-e3'), color: '#FFD166' },
+          { el: document.getElementById('laser-path-droplet'), color: '#38E8FF' },
+          { el: document.getElementById('laser-path-wave'), color: '#38E8FF' }
+        ],
+        dynShadowFar: document.getElementById('dyn-shadow-far'),
+        dynShadowMid: document.getElementById('dyn-shadow-mid'),
+        actStatusText: document.getElementById('act-status-text'),
+        scrubber: document.getElementById('timeline-scrubber'),
+        timecodeDisplay: document.getElementById('timecode-display'),
+        btnPlayPause: document.getElementById('btn-play-pause'),
+        iconPause: document.getElementById('icon-pause'),
+        iconPlay: document.getElementById('icon-play'),
+        btnRestart: document.getElementById('btn-restart'),
+        btnReplaySound: document.getElementById('btn-replay-sound'),
+        ctaSoundLabel: document.getElementById('cta-sound-label'),
+        btnSoundToggle: document.getElementById('btn-sound-toggle'),
+        soundIndicatorDot: document.getElementById('sound-indicator-dot'),
+        soundToggleText: document.getElementById('sound-toggle-text'),
+        btnSpeed: document.getElementById('btn-speed'),
+        btnLoop: document.getElementById('btn-loop'),
+        btnFullscreen: document.getElementById('btn-fullscreen'),
+        btnCleanCapture: document.getElementById('btn-clean-capture'),
+        modeBtns: document.querySelectorAll('.mode-btn'),
+        actMarkers: document.querySelectorAll('.act-marker')
+      };
+
+      // Build 10-layer 3D Extruded Bevel Stack for "VISHWAKARMA" and 7-layer 3D Stack for "ENTERPRISES"
+      const SVG_NS = 'http://www.w3.org/2000/svg';
+      const titleExtrusionNodes = [];
+      for (let i = 10; i >= 1; i--) {
+        const tNode = document.createElementNS(SVG_NS, 'text');
+        tNode.setAttribute('x', (538 + i * 0.55).toFixed(2));
+        tNode.setAttribute('y', (792 + i * 0.72).toFixed(2));
+        tNode.setAttribute('text-anchor', 'middle');
+        tNode.setAttribute('font-family', "'Montserrat', sans-serif");
+        tNode.setAttribute('font-weight', '800');
+        tNode.setAttribute('font-size', '63');
+        tNode.setAttribute('letter-spacing', '4.2');
+        // Shaded 3D bevel extrusion gradient from dark slate to deep shadow
+        const shade = Math.max(4, 38 - i * 3);
+        tNode.setAttribute('fill', `rgb(${shade}, ${shade + 4}, ${shade + 12})`);
+        tNode.textContent = 'VISHWAKARMA';
+        dom.titleExtrusionStack.appendChild(tNode);
+        titleExtrusionNodes.push(tNode);
+      }
+
+      const subExtrusionNodes = [];
+      for (let i = 7; i >= 1; i--) {
+        const sNode = document.createElementNS(SVG_NS, 'text');
+        sNode.setAttribute('x', (545 + i * 0.48).toFixed(2));
+        sNode.setAttribute('y', (858 + i * 0.62).toFixed(2));
+        sNode.setAttribute('text-anchor', 'middle');
+        sNode.setAttribute('font-family', "'Montserrat', sans-serif");
+        sNode.setAttribute('font-weight', '700');
+        sNode.setAttribute('font-size', '45');
+        sNode.setAttribute('letter-spacing', '14.5');
+        sNode.setAttribute('fill', i > 4 ? '#02234F' : '#04387A');
+        sNode.textContent = 'ENTERPRISES';
+        dom.subExtrusionStack.appendChild(sNode);
+        subExtrusionNodes.push(sNode);
+      }
+
+      // Measure SVG path lengths for precision laser filament tracing
+      dom.laserPaths.forEach((item) => {
+        item.length = item.el.getTotalLength ? item.el.getTotalLength() : 1600;
+        item.el.style.strokeDasharray = `${item.length}`;
+        item.el.style.strokeDashoffset = `${item.length}`;
+      });
+      const waveTotalLen = dom.waveBodyPath.getTotalLength ? dom.waveBodyPath.getTotalLength() : 2200;
+
+      /* ==========================================================================
+         3. EASING & INTERPOLATION UTILITIES
+         ========================================================================== */
+      const clamp = (v, min = 0, max = 1) => Math.max(min, Math.min(max, v));
+      const norm = (t, a, b) => clamp((t - a) / (b - a), 0, 1);
+      const lerp = (a, b, u) => a + (b - a) * u;
+      const easeOutCubic = (x) => 1 - Math.pow(1 - x, 3);
+      const easeOutQuart = (x) => 1 - Math.pow(1 - x, 4);
+      const easeOutQuint = (x) => 1 - Math.pow(1 - x, 5);
+      const easeInOutCubic = (x) => (x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2);
+
+      /* ==========================================================================
+         4. HOLLYWOOD STEREO CONVOLUTION REVERB CINEMA SOUND ENGINE (WEB AUDIO API)
+         ========================================================================== */
+      class HollywoodConcertHallAudio {
+        constructor() {
+          this.ctx = null;
+          this.masterGain = null;
+          this.dryBus = null;
+          this.reverbBus = null;
+          this.convolver = null;
+        }
+
+        unlock() {
+          if (!this.ctx) {
+            const AudioCtx = window.AudioContext || window.webkitAudioContext;
+            this.ctx = new AudioCtx();
+
+            // Master limiter / warm soft-clipping stage
+            this.masterGain = this.ctx.createGain();
+            this.masterGain.gain.value = 0.82;
+
+            const shaper = this.ctx.createWaveShaper();
+            shaper.curve = this.makeWarmSaturationCurve(4096);
+            shaper.oversample = '2x';
+
+            // Dry & Lush 3.8s Stereo Concert Hall Reverb Buses
+            this.dryBus = this.ctx.createGain();
+            this.dryBus.gain.value = 0.72;
+
+            this.reverbBus = this.ctx.createGain();
+            this.reverbBus.gain.value = 0.58;
+
+            this.convolver = this.ctx.createConvolver();
+            this.convolver.buffer = this.buildConcertHallImpulse(3.8, 2.4);
+
+            this.dryBus.connect(shaper);
+            this.reverbBus.connect(this.convolver);
+            this.convolver.connect(shaper);
+            shaper.connect(this.masterGain);
+            this.masterGain.connect(this.ctx.destination);
+          }
+          if (this.ctx.state === 'suspended') {
+            this.ctx.resume();
+          }
+        }
+
+        makeWarmSaturationCurve(samples) {
+          const curve = new Float32Array(samples);
+          for (let i = 0; i < samples; i++) {
+            const x = (i * 2) / samples - 1;
+            curve[i] = Math.tanh(x * 1.45);
+          }
+          return curve;
+        }
+
+        // Synthesizes a realistic 3.8-second Stereo IMAX Concert Hall Impulse Response
+        buildConcertHallImpulse(durationSec, decayRate) {
+          const rate = this.ctx.sampleRate;
+          const length = Math.floor(rate * durationSec);
+          const impulse = this.ctx.createBuffer(2, length, rate);
+          const left = impulse.getChannelData(0);
+          const right = impulse.getChannelData(1);
+
+          // Early reflections + lush exponentially decaying diffuse hall tail
+          const earlyTimes = [0.014, 0.027, 0.043, 0.068, 0.095];
+          for (let i = 0; i < length; i++) {
+            const t = i / rate;
+            const env = Math.pow(1 - i / length, decayRate);
+            // Warm low-passed hall air modulation
+            const damp = Math.exp(-t * 1.15);
+            left[i] = (Math.random() * 2 - 1) * env * damp * 0.45;
+            right[i] = (Math.random() * 2 - 1) * env * damp * 0.45;
+          }
+          earlyTimes.forEach((et, idx) => {
+            const sampleIdx = Math.floor(et * rate);
+            if (sampleIdx < length) {
+              const amp = 0.5 / (idx + 1);
+              left[sampleIdx] += amp * (idx % 2 === 0 ? 1 : -0.8);
+              right[sampleIdx] += amp * (idx % 2 === 0 ? -0.8 : 1);
+            }
+          });
+          return impulse;
+        }
+
+        // Helper: Play a multi-oscillator stereo unison pad voice into dry + hall reverb
+        playUnisonPadVoice(freq, startTime, duration, peakGain, detuneCents = 12, filterCutoff = 1100) {
+          const offsets = [-detuneCents, 0, detuneCents];
+          const voiceGain = this.ctx.createGain();
+          const filter = this.ctx.createBiquadFilter();
+          filter.type = 'lowpass';
+          filter.Q.value = 1.6;
+          filter.frequency.setValueAtTime(160, startTime);
+          filter.frequency.exponentialRampToValueAtTime(filterCutoff, startTime + duration * 0.42);
+          filter.frequency.exponentialRampToValueAtTime(220, startTime + duration);
+
+          voiceGain.gain.setValueAtTime(0.0001, startTime);
+          voiceGain.gain.linearRampToValueAtTime(peakGain, startTime + duration * 0.25);
+          voiceGain.gain.exponentialRampToValueAtTime(0.0005, startTime + duration);
+
+          offsets.forEach((cents, idx) => {
+            const osc = this.ctx.createOscillator();
+            const panner = this.ctx.createStereoPanner ? this.ctx.createStereoPanner() : null;
+            osc.type = idx === 1 ? 'triangle' : 'sawtooth';
+            osc.frequency.setValueAtTime(freq, startTime);
+            osc.detune.setValueAtTime(cents, startTime);
+
+            if (panner) {
+              panner.pan.setValueAtTime((idx - 1) * 0.55, startTime);
+              osc.connect(panner);
+              panner.connect(filter);
+            } else {
+              osc.connect(filter);
+            }
+            osc.start(startTime);
+            osc.stop(startTime + duration + 0.05);
+          });
+
+          filter.connect(voiceGain);
+          voiceGain.connect(this.dryBus);
+          voiceGain.connect(this.reverbBus);
+        }
+
+        // ACT I (0.0s): Deep Hans-Zimmer Warm Unison Brass & 36.7Hz D1 Sub-Bass Swell
+        playAct1GenesisSwell() {
+          if (!state.soundEnabled || !this.ctx) return;
+          const now = this.ctx.currentTime;
+
+          // Deep 36.71Hz (D1) Cinema Sub-Drop
+          const sub = this.ctx.createOscillator();
+          const subGain = this.ctx.createGain();
+          sub.type = 'sine';
+          sub.frequency.setValueAtTime(73.42, now);
+          sub.frequency.exponentialRampToValueAtTime(36.71, now + 2.3);
+          subGain.gain.setValueAtTime(0.001, now);
+          subGain.gain.linearRampToValueAtTime(0.45, now + 0.35);
+          subGain.gain.exponentialRampToValueAtTime(0.001, now + 2.5);
+          sub.connect(subGain);
+          subGain.connect(this.dryBus);
+          sub.start(now);
+          sub.stop(now + 2.55);
+
+          // Warm D-minor/sus4 Unison Cinema Pad (D2, A2, D3, G3, A3)
+          const notes = [73.42, 110.0, 146.83, 196.0, 220.0];
+          notes.forEach((f, i) => {
+            this.playUnisonPadVoice(f, now + i * 0.06, 2.6, 0.075 / (i * 0.25 + 1), 14, 900);
+          });
+        }
+
+        // ACT II (2.4s - 3.6s): Deep Cinematic Monolith Impact & Harmonic Resonance
+        playMonolithLock(pitchMultiplier = 1.0) {
+          if (!state.soundEnabled || !this.ctx) return;
+          const now = this.ctx.currentTime;
+
+          // Deep Orchestral Tom / Sub Thud
+          const osc = this.ctx.createOscillator();
+          const gain = this.ctx.createGain();
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(115 * pitchMultiplier, now);
+          osc.frequency.exponentialRampToValueAtTime(34, now + 0.55);
+
+          gain.gain.setValueAtTime(0.42, now);
+          gain.gain.exponentialRampToValueAtTime(0.0008, now + 0.6);
+
+          osc.connect(gain);
+          gain.connect(this.dryBus);
+          gain.connect(this.reverbBus);
+          osc.start(now);
+          osc.stop(now + 0.65);
+
+          // Warm Brass Fifth Swell on Impact
+          this.playUnisonPadVoice(110.0 * pitchMultiplier, now, 1.1, 0.06, 10, 1200);
+        }
+
+        // ACT II (3.8s): Pressurized Liquid Hydro-Whoosh & Crystalline D-Lydian Water Chimes
+        playHydroWaveAndChimes() {
+          if (!state.soundEnabled || !this.ctx) return;
+          const now = this.ctx.currentTime;
+
+          // Filtered Stereo Pink-Noise Liquid Rush into Concert Hall Reverb
+          const len = Math.floor(this.ctx.sampleRate * 1.4);
+          const buf = this.ctx.createBuffer(1, len, this.ctx.sampleRate);
+          const ch = buf.getChannelData(0);
+          let b0 = 0, b1 = 0, b2 = 0;
+          for (let i = 0; i < len; i++) {
+            const white = Math.random() * 2 - 1;
+            b0 = 0.997 * b0 + white * 0.029;
+            b1 = 0.985 * b1 + white * 0.032;
+            b2 = 0.950 * b2 + white * 0.048;
+            ch[i] = (b0 + b1 + b2 + white * 0.02) * 3.5;
+          }
+
+          const src = this.ctx.createBufferSource();
+          src.buffer = buf;
+          const filter = this.ctx.createBiquadFilter();
+          filter.type = 'bandpass';
+          filter.Q.value = 3.2;
+          filter.frequency.setValueAtTime(240, now);
+          filter.frequency.exponentialRampToValueAtTime(1650, now + 0.65);
+          filter.frequency.exponentialRampToValueAtTime(420, now + 1.35);
+
+          const g = this.ctx.createGain();
+          g.gain.setValueAtTime(0.001, now);
+          g.gain.linearRampToValueAtTime(0.28, now + 0.45);
+          g.gain.exponentialRampToValueAtTime(0.001, now + 1.38);
+
+          src.connect(filter);
+          filter.connect(g);
+          g.connect(this.dryBus);
+          g.connect(this.reverbBus);
+          src.start(now);
+
+          // Crystalline D-Lydian Harmonic Water Droplet Chimes (A4, D5, E5, F#5, A5)
+          const chimeFreqs = [440.0, 587.33, 659.25, 739.99, 880.0];
+          chimeFreqs.forEach((f, idx) => {
+            const o = this.ctx.createOscillator();
+            const og = this.ctx.createGain();
+            o.type = 'sine';
+            const tStart = now + 0.18 + idx * 0.065;
+            o.frequency.setValueAtTime(f, tStart);
+            og.gain.setValueAtTime(0.001, tStart);
+            og.gain.linearRampToValueAtTime(0.085 / (idx * 0.3 + 1), tStart + 0.02);
+            og.gain.exponentialRampToValueAtTime(0.0005, tStart + 1.8);
+            o.connect(og);
+            og.connect(this.reverbBus);
+            og.connect(this.dryBus);
+            o.start(tStart);
+            o.stop(tStart + 1.85);
+          });
+        }
+
+        // ACT III (5.0s): Majestic Hollywood D-Major-9th Orchestral Resolution + Golden Flare Bell
+        playMajesticTitleResolve() {
+          if (!state.soundEnabled || !this.ctx) return;
+          const now = this.ctx.currentTime;
+
+          // Deep 36.71Hz (D1) Foundation Pedal
+          const sub = this.ctx.createOscillator();
+          const subG = this.ctx.createGain();
+          sub.type = 'sine';
+          sub.frequency.setValueAtTime(36.71, now);
+          subG.gain.setValueAtTime(0.001, now);
+          subG.gain.linearRampToValueAtTime(0.46, now + 0.3);
+          subG.gain.exponentialRampToValueAtTime(0.0008, now + 4.4);
+          sub.connect(subG);
+          subG.connect(this.dryBus);
+          sub.start(now);
+          sub.stop(now + 4.5);
+
+          // Lush D-Major-9th Unison Orchestra Swell (D2, A2, D3, F#3, A3, C#4, E4, A4)
+          const chord = [73.42, 110.0, 146.83, 185.0, 220.0, 277.18, 329.63, 440.0];
+          chord.forEach((freq, idx) => {
+            const peak = 0.085 / (idx * 0.28 + 1);
+            this.playUnisonPadVoice(freq, now + idx * 0.035, 4.3, peak, 15, 2400);
+          });
+
+          // Golden Lens Flare Harmonic Shimmer Arpeggio in Concert Hall Reverb
+          const bells = [1174.66, 1479.98, 1760.0, 2217.46, 2349.32];
+          bells.forEach((freq, i) => {
+            const osc = this.ctx.createOscillator();
+            const gain = this.ctx.createGain();
+            osc.type = 'triangle';
+            const t0 = now + 0.08 + i * 0.055;
+            osc.frequency.setValueAtTime(freq, t0);
+            gain.gain.setValueAtTime(0.001, t0);
+            gain.gain.linearRampToValueAtTime(0.055, t0 + 0.02);
+            gain.gain.exponentialRampToValueAtTime(0.0004, t0 + 2.4);
+            osc.connect(gain);
+            gain.connect(this.reverbBus);
+            osc.start(t0);
+            osc.stop(t0 + 2.45);
+          });
+        }
+
+        // ACT III (6.1s): Subtle Crystalline Title Sheen Chime when "ENTERPRISES" locks in
+        playSubtitleSheenChime() {
+          if (!state.soundEnabled || !this.ctx) return;
+          const now = this.ctx.currentTime;
+          const notes = [587.33, 880.0, 1174.66, 1479.98];
+          notes.forEach((f, i) => {
+            const osc = this.ctx.createOscillator();
+            const g = this.ctx.createGain();
+            osc.type = 'sine';
+            const t0 = now + i * 0.045;
+            osc.frequency.setValueAtTime(f, t0);
+            g.gain.setValueAtTime(0.001, t0);
+            g.gain.linearRampToValueAtTime(0.05, t0 + 0.02);
+            g.gain.exponentialRampToValueAtTime(0.0004, t0 + 1.9);
+            osc.connect(g);
+            g.connect(this.reverbBus);
+            osc.start(t0);
+            osc.stop(t0 + 1.95);
+          });
+        }
+      }
+
+      const hallAudio = new HollywoodConcertHallAudio();
+
+      function syncSoundCueFlags(time) {
+        state.cues.act1Braam = time > 0.08;
+        state.cues.monolithV = time > 2.45;
+        state.cues.monolithE1 = time > 2.85;
+        state.cues.monolithE2 = time > 3.15;
+        state.cues.monolithE3 = time > 3.45;
+        state.cues.hydroWave = time > 3.85;
+        state.cues.flareAndTitleResolve = time > 5.05;
+        state.cues.subTitleShimmer = time > 6.10;
+      }
+
+      /* ==========================================================================
+         5. DUAL-CANVAS 4K PARTICLE, FILAMENT SPARK & HYDRO-MIST ENGINE
+         ========================================================================== */
+      const bgCanvas = document.getElementById('bg-fx-canvas');
+      const bgCtx = bgCanvas.getContext('2d');
+      const fgCanvas = document.getElementById('fg-fx-canvas');
+      const fgCtx = fgCanvas.getContext('2d');
+
+      let vw = window.innerWidth;
+      let vh = window.innerHeight;
+
+      function resizeCanvases() {
+        const dpr = Math.min(window.devicePixelRatio || 1, 2);
+        vw = window.innerWidth;
+        vh = window.innerHeight;
+        bgCanvas.width = vw * dpr;
+        bgCanvas.height = vh * dpr;
+        fgCanvas.width = vw * dpr;
+        fgCanvas.height = vh * dpr;
+        bgCtx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        fgCtx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      }
+      resizeCanvases();
+      window.addEventListener('resize', resizeCanvases);
+
+      // Convert SVG (1200x920) coordinate to live screen pixel coordinate
+      function svgToScreen(svgX, svgY) {
+        const rect = dom.stageWrap.getBoundingClientRect();
+        return {
+          x: rect.left + (svgX / 1200) * rect.width,
+          y: rect.top + (svgY / 920) * rect.height,
+          scale: rect.width / 1200
+        };
+      }
+
+      // Atmospheric Studio Dust Motes & Hydro-Ions (Background Canvas)
+      const MOTE_COUNT = 260;
+      const studioMotes = [];
+      for (let i = 0; i < MOTE_COUNT; i++) {
+        const isGold = i % 3 === 0;
+        studioMotes.push({
+          angle: (i / MOTE_COUNT) * Math.PI * 14,
+          radius: 60 + Math.random() * Math.max(vw, vh) * 0.62,
+          orbitSpeed: 0.9 + Math.random() * 1.4,
+          size: 1.1 + Math.random() * 2.2,
+          color: isGold ? '#FFD166' : '#38E8FF'
+        });
+      }
+
+      // Fine Optical Filament Sparks, Hydro-Mist Droplets & Subtle Ripple Rings (Foreground Canvas)
+      const liveSparks = [];
+      const splashDroplets = [];
+      const activeShockwaves = [];
+
+      function spawnLaserSpark(screenX, screenY, color) {
+        for (let i = 0; i < 2; i++) {
+          const angle = Math.random() * Math.PI * 2;
+          const speed = 1.0 + Math.random() * 3.8;
+          liveSparks.push({
+            x: screenX,
+            y: screenY,
+            vx: Math.cos(angle) * speed,
+            vy: Math.sin(angle) * speed - 0.5,
+            life: 1.0,
+            decay: 0.04 + Math.random() * 0.04,
+            size: 1.2 + Math.random() * 1.9,
+            color
+          });
+        }
+      }
+
+      function spawnHydroMistBurst(screenX, screenY, count = 26) {
+        for (let i = 0; i < count; i++) {
+          const angle = -Math.PI * 0.85 + Math.random() * Math.PI * 0.7;
+          const speed = 1.8 + Math.random() * 6.2;
+          splashDroplets.push({
+            x: screenX + (Math.random() - 0.5) * 20,
+            y: screenY + (Math.random() - 0.5) * 20,
+            vx: Math.cos(angle) * speed,
+            vy: Math.sin(angle) * speed - 1.5,
+            life: 1.0,
+            decay: 0.02 + Math.random() * 0.02,
+            radius: 1.8 + Math.random() * 3.2,
+            color: i % 3 === 0 ? '#FFFFFF' : '#62CEFF'
+          });
+        }
+      }
+
+      function triggerOpticalRing(screenX, screenY, color = '#38E8FF', maxR = 320, speed = 9) {
+        activeShockwaves.push({
+          x: screenX,
+          y: screenY,
+          r: 8,
+          maxR,
+          speed,
+          color,
+          alpha: 0.75
+        });
+      }
+
+      /* ==========================================================================
+         6. MASTER 4-ACT HOLLYWOOD CHOREOGRAPHY ENGINE (60FPS)
+         ========================================================================== */
+      function renderFrame(t) {
+        // Trigger synchronized Concert Hall Audio cues
+        if (state.playing) {
+          if (t >= 0.04 && !state.cues.act1Braam) {
+            state.cues.act1Braam = true;
+            hallAudio.playAct1GenesisSwell();
+          }
+          if (t >= 2.45 && !state.cues.monolithV) {
+            state.cues.monolithV = true;
+            const pt = svgToScreen(398, 420);
+            triggerOpticalRing(pt.x, pt.y, '#4692FF', 340, 11);
+            hallAudio.playMonolithLock(1.0);
+          }
+          if (t >= 2.85 && !state.cues.monolithE1) {
+            state.cues.monolithE1 = true;
+            hallAudio.playMonolithLock(1.12);
+          }
+          if (t >= 3.15 && !state.cues.monolithE2) {
+            state.cues.monolithE2 = true;
+            hallAudio.playMonolithLock(0.95);
+          }
+          if (t >= 3.45 && !state.cues.monolithE3) {
+            state.cues.monolithE3 = true;
+            hallAudio.playMonolithLock(0.84);
+          }
+          if (t >= 3.85 && !state.cues.hydroWave) {
+            state.cues.hydroWave = true;
+            const dropPt = svgToScreen(624, 515);
+            spawnHydroMistBurst(dropPt.x, dropPt.y, 30);
+            triggerOpticalRing(dropPt.x, dropPt.y, '#62CEFF', 380, 11);
+            hallAudio.playHydroWaveAndChimes();
+          }
+          if (t >= 5.05 && !state.cues.flareAndTitleResolve) {
+            state.cues.flareAndTitleResolve = true;
+            const flarePt = svgToScreen(966, 568);
+            triggerOpticalRing(flarePt.x, flarePt.y, '#FFD166', Math.max(vw, vh) * 0.95, 18);
+            hallAudio.playMajesticTitleResolve();
+          }
+          if (t >= 6.10 && !state.cues.subTitleShimmer) {
+            state.cues.subTitleShimmer = true;
+            hallAudio.playSubtitleSheenChime();
+          }
+        }
+
+        // Update Top Broadcast Act Status Pill
+        if (t < 2.4) {
+          dom.actStatusText.textContent = 'ACT I • OPTICAL FILAMENT BEVEL TRACE';
+        } else if (t < 5.0) {
+          dom.actStatusText.textContent = 'ACT II • 3D MONOLITH EMERGENCE & HYDRO SURGE';
+        } else if (t < 7.8) {
+          dom.actStatusText.textContent = 'ACT III • GOLDEN LENS FLARE & 3D SPECULAR TITLE REVEAL';
+        } else {
+          dom.actStatusText.textContent = 'ACT IV • 4K STUDIO LOCKUP & INTERACTIVE PARALLAX';
+        }
+
+        /* ----------------------------------------------------------------------
+           REAL-TIME 3D <fePointLight> SPECULAR ORBIT ACROSS LOGO BEVELS
+           ---------------------------------------------------------------------- */
+        const lightAngle = t * 1.15;
+        const logoLightX = 600 + Math.sin(lightAngle) * 440 + state.smoothX * 260;
+        const logoLightY = 360 + Math.cos(lightAngle * 0.8) * 240 + state.smoothY * 180;
+        dom.logoPointLight.setAttribute('x', logoLightX.toFixed(1));
+        dom.logoPointLight.setAttribute('y', logoLightY.toFixed(1));
+
+        /* ----------------------------------------------------------------------
+           ACT I (0.0s – 2.4s): PRECISION LASER FILAMENT BEVEL ETCHING
+           ---------------------------------------------------------------------- */
+        const laserProgress = easeInOutCubic(norm(t, 0.12, 2.25));
+        const laserFadeOut = 1 - easeOutCubic(norm(t, 2.30, 3.10));
+        dom.laserGroup.style.opacity = laserFadeOut.toFixed(3);
+
+        dom.laserPaths.forEach((item, idx) => {
+          const staggeredP = clamp((laserProgress * 1.22) - idx * 0.045, 0, 1);
+          const offset = item.length * (1 - staggeredP);
+          item.el.style.strokeDashoffset = `${offset}`;
+
+          if (state.playing && t >= 0.14 && t <= 2.30 && staggeredP > 0.02 && staggeredP < 0.99) {
+            if (Math.random() < 0.55 && item.el.getPointAtLength) {
+              const pt = item.el.getPointAtLength(item.length * staggeredP);
+              const screenPt = svgToScreen(pt.x, pt.y);
+              spawnLaserSpark(screenPt.x, screenPt.y, item.color);
+            }
+          }
+        });
+
+        /* ----------------------------------------------------------------------
+           ACT II (2.4s – 5.0s): HEAVY 3D MONOLITH EMERGENCE & LIQUID HYDRO-SURGE
+           ---------------------------------------------------------------------- */
+        // 1) Cobalt Blue 'V' Monument rises smoothly from 3D depth with authoritative deceleration
+        const pV = easeOutQuint(norm(t, 2.25, 3.15));
+        const opV = easeOutCubic(norm(t, 2.20, 2.65));
+        dom.monumentV.style.opacity = opV.toFixed(3);
+        dom.monumentV.style.transform = `translate3d(${lerp(-140, 0, pV)}px, ${lerp(35, 0, pV)}px, ${lerp(220, 0, pV)}px) rotateY(${lerp(-28, 0, pV)}deg)`;
+
+        // 2) 3 Obsidian Black 'E' Segments glide and lock along precision parallel vectors
+        const pE1 = easeOutQuint(norm(t, 2.65, 3.45));
+        const pE2 = easeOutQuint(norm(t, 2.95, 3.75));
+        const pE3 = easeOutQuint(norm(t, 3.25, 4.05));
+
+        dom.eSegTop.style.opacity = easeOutCubic(norm(t, 2.60, 2.95)).toFixed(3);
+        dom.eSegTop.style.transform = `translate3d(${lerp(150, 0, pE1)}px, ${lerp(-30, 0, pE1)}px, ${lerp(180, 0, pE1)}px) rotateY(${lerp(26, 0, pE1)}deg)`;
+
+        dom.eSegMid.style.opacity = easeOutCubic(norm(t, 2.90, 3.25)).toFixed(3);
+        dom.eSegMid.style.transform = `translate3d(${lerp(165, 0, pE2)}px, 0px, ${lerp(190, 0, pE2)}px) rotateY(${lerp(26, 0, pE2)}deg)`;
+
+        dom.eSegBot.style.opacity = easeOutCubic(norm(t, 3.20, 3.55)).toFixed(3);
+        dom.eSegBot.style.transform = `translate3d(${lerp(140, 0, pE3)}px, ${lerp(35, 0, pE3)}px, ${lerp(200, 0, pE3)}px) rotateY(${lerp(26, 0, pE3)}deg)`;
+
+        // 3) Hydro-Dynamic Wave Swoosh Carve (3.60s -> 4.65s) & Glossy 3D Water Droplet Condensation (3.85s -> 4.75s)
+        const pWave = easeInOutCubic(norm(t, 3.60, 4.65));
+        dom.monumentWave.style.opacity = easeOutCubic(norm(t, 3.58, 3.95)).toFixed(3);
+        dom.monumentWave.style.transform = `translate3d(${lerp(-55, 0, pWave)}px, ${lerp(24, 0, pWave)}px, 0px) scale(${lerp(0.94, 1.0, pWave)})`;
+        dom.waveBodyPath.style.strokeDasharray = `${waveTotalLen}`;
+        dom.waveBodyPath.style.strokeDashoffset = `${lerp(waveTotalLen, 0, pWave)}`;
+
+        const pDrop = easeOutQuint(norm(t, 3.85, 4.75));
+        dom.monumentDroplet.style.opacity = easeOutCubic(norm(t, 3.82, 4.15)).toFixed(3);
+        dom.monumentDroplet.style.transform = `translate3d(0px, ${lerp(65, 0, pDrop)}px, ${lerp(160, 0, pDrop)}px) scale(${lerp(0.35, 1.0, pDrop)})`;
+
+        /* ----------------------------------------------------------------------
+           ACT III (5.0s – 7.8s): GOLDEN OPTICAL LENS FLARE & STUDIO ILLUMINATION
+           ---------------------------------------------------------------------- */
+        // 1) Golden-White Optical Lens Flare at (966, 568) Ignites at t = 4.95s
+        let flarePower = 0;
+        if (t >= 4.90) {
+          const rise = easeOutCubic(norm(t, 4.90, 5.40));
+          const ignitionCrest = t < 6.3 ? Math.sin(norm(t, 4.90, 6.3) * Math.PI) * 0.45 : 0;
+          const livingPulse = 0.07 * Math.sin(t * 5.2) + 0.04 * Math.cos(t * 8.7);
+          const parallaxGlint = Math.abs(state.smoothX) * 0.22;
+          flarePower = clamp(rise * 0.96 + ignitionCrest + livingPulse + parallaxGlint, 0, 1.45);
+        }
+        dom.lensFlareRig.style.opacity = clamp(flarePower, 0, 1).toFixed(3);
+        dom.lensFlareRig.style.transform = `translate3d(0, 0, 18px) scale(${(0.62 + flarePower * 0.42).toFixed(3)})`;
+
+        // 2) Smooth Warm Cyclorama Studio Illumination (Dark Void -> Alabaster Studio Backdrop)
+        const flareScreen = svgToScreen(966, 568);
+        const originXPercent = ((flareScreen.x / vw) * 100).toFixed(1);
+        const originYPercent = ((flareScreen.y / vh) * 100).toFixed(1);
+
+        let studioRevealProgress = 0;
+        let isDarkBackdrop = true;
+
+        if (state.visualMode === 'studio') {
+          studioRevealProgress = 1;
+          isDarkBackdrop = false;
+          dom.studioBackdrop.style.opacity = '1';
+          dom.studioBackdrop.style.clipPath = 'none';
+          dom.cyberGrid.style.opacity = '0';
+        } else if (state.visualMode === 'obsidian') {
+          studioRevealProgress = 0;
+          isDarkBackdrop = true;
+          dom.studioBackdrop.style.opacity = '0';
+          dom.cyberGrid.style.opacity = '0.55';
+        } else {
+          // Default 'genesis' mode: Radial light dome expands smoothly from the Golden Flare at t = 5.00s -> 6.45s
+          studioRevealProgress = easeInOutCubic(norm(t, 5.00, 6.45));
+          const clipRadius = lerp(0, 150, studioRevealProgress);
+          dom.studioBackdrop.style.opacity = clamp(studioRevealProgress * 1.35, 0, 1).toFixed(3);
+          dom.studioBackdrop.style.clipPath = `circle(${clipRadius.toFixed(2)}% at ${originXPercent}% ${originYPercent}%)`;
+          dom.cyberGrid.style.opacity = lerp(0.75, 0, studioRevealProgress).toFixed(3);
+          isDarkBackdrop = studioRevealProgress < 0.52;
+        }
+
+        // Adapt 3D Typography & Registered Symbol Shader for Dark Void vs. Alabaster Studio
+        dom.titleFrontFace.setAttribute('fill', isDarkBackdrop ? 'url(#title-face-dark)' : 'url(#title-face-studio)');
+        const regColor = isDarkBackdrop ? '#F8FAFC' : '#11151C';
+        dom.regInks.forEach((el) => el.setAttribute('stroke', regColor));
+
+        /* ----------------------------------------------------------------------
+           ACT III (5.15s – 7.60s): HOLLYWOOD 3D BEVELED & SPECULAR TITLE REVEAL
+           ---------------------------------------------------------------------- */
+        // STAGE 1: "VISHWAKARMA" Anamorphic Focus-Pull, Laser Filament Edge-Trace & 3D Extrusion Lock
+        const pTitleEnter = easeOutQuint(norm(t, 5.15, 6.45));
+        const opTitle = easeOutCubic(norm(t, 5.15, 5.75));
+        dom.title3dGroup.setAttribute('opacity', opTitle.toFixed(3));
+
+        // Horizontal Anamorphic Lens Blur pulls smoothly to 0.0 (razor-sharp 4K focus)
+        const blurXTitle = lerp(18, 0, easeOutQuart(norm(t, 5.15, 6.15)));
+        const blurYTitle = lerp(2.2, 0, easeOutQuart(norm(t, 5.15, 6.15)));
+        dom.titleAnamorphicBlur.setAttribute('stdDeviation', `${blurXTitle.toFixed(2)} ${blurYTitle.toFixed(2)}`);
+
+        // Smooth cinematic letter-spacing settlement (from 11.5px -> exact 4.2px logo kerning)
+        const currentTitleTracking = lerp(11.5, 4.2, pTitleEnter).toFixed(2);
+        dom.titleFrontFace.setAttribute('letter-spacing', currentTitleTracking);
+        dom.titleChamferRim.setAttribute('letter-spacing', currentTitleTracking);
+        dom.titleLaserTrace.setAttribute('letter-spacing', currentTitleTracking);
+
+        // Animate 10-layer 3D Extrusion depth & parallax shift on "VISHWAKARMA"
+        const depthFactor = easeOutCubic(norm(t, 5.35, 6.50));
+        titleExtrusionNodes.forEach((node, idx) => {
+          const layerDepth = (10 - idx) * depthFactor;
+          const parX = -state.smoothX * layerDepth * 0.25;
+          const parY = -state.smoothY * layerDepth * 0.18;
+          node.setAttribute('x', (538 + layerDepth * 0.55 + parX).toFixed(2));
+          node.setAttribute('y', (792 + layerDepth * 0.72 + parY).toFixed(2));
+          node.setAttribute('letter-spacing', currentTitleTracking);
+        });
+
+        // Real-Time 3D <fePointLight> sweeping across every bevel of "VISHWAKARMA"
+        let titleLightX = 538;
+        if (t >= 5.15 && t <= 6.85) {
+          titleLightX = lerp(140, 960, easeInOutCubic(norm(t, 5.15, 6.85)));
+        } else {
+          titleLightX = 538 + Math.sin(t * 1.4) * 340 + state.smoothX * 220;
+        }
+        dom.titlePointLight.setAttribute('x', titleLightX.toFixed(1));
+        dom.titlePointLight.setAttribute('y', (765 + state.smoothY * 45).toFixed(1));
+
+        // Golden-Cyan Laser Filament Edge-Trace across "VISHWAKARMA" (5.10s -> 6.35s)
+        const pTitleLaser = easeInOutCubic(norm(t, 5.10, 6.20));
+        const titleLaserAlpha = Math.sin(norm(t, 5.10, 6.45) * Math.PI) * 0.95;
+        dom.titleLaserTrace.setAttribute('stroke-dashoffset', lerp(900, 0, pTitleLaser).toFixed(1));
+        dom.titleLaserTrace.setAttribute('opacity', clamp(titleLaserAlpha, 0, 1).toFixed(3));
+
+        // STAGE 2: "E N T E R P R I S E S" Azure Luminescence & Wide-to-Exact Tracking Reveal (5.75s -> 7.15s)
+        const pSubEnter = easeOutQuint(norm(t, 5.75, 7.10));
+        const opSub = easeOutCubic(norm(t, 5.75, 6.35));
+        dom.sub3dGroup.setAttribute('opacity', opSub.toFixed(3));
+
+        const blurXSub = lerp(14, 0, easeOutQuart(norm(t, 5.75, 6.75)));
+        dom.subAnamorphicBlur.setAttribute('stdDeviation', `${blurXSub.toFixed(2)} 0`);
+
+        // Smooth architectural tracking contraction (from 26px -> exact 14.5px spacing beneath VISHWAKARMA)
+        const currentSubTracking = lerp(26.0, 14.5, pSubEnter).toFixed(2);
+        dom.subFrontFace.setAttribute('letter-spacing', currentSubTracking);
+        dom.subChamferRim.setAttribute('letter-spacing', currentSubTracking);
+        dom.subLaserTrace.setAttribute('letter-spacing', currentSubTracking);
+
+        subExtrusionNodes.forEach((sNode, idx) => {
+          const layerDepth = (7 - idx) * pSubEnter;
+          sNode.setAttribute('x', (545 + layerDepth * 0.48 - state.smoothX * layerDepth * 0.2).toFixed(2));
+          sNode.setAttribute('y', (858 + layerDepth * 0.62 - state.smoothY * layerDepth * 0.15).toFixed(2));
+          sNode.setAttribute('letter-spacing', currentSubTracking);
+        });
+
+        // Real-Time 3D <fePointLight> sweeping across "ENTERPRISES"
+        const subLightX = t <= 7.3 ? lerp(180, 920, easeInOutCubic(norm(t, 5.75, 7.3))) : 545 + Math.cos(t * 1.6) * 300 + state.smoothX * 200;
+        dom.subPointLight.setAttribute('x', subLightX.toFixed(1));
+
+        // Cyan Filament Edge-Trace across "ENTERPRISES"
+        const pSubLaser = easeInOutCubic(norm(t, 5.75, 6.95));
+        const subLaserAlpha = Math.sin(norm(t, 5.75, 7.15) * Math.PI) * 0.9;
+        dom.subLaserTrace.setAttribute('stroke-dashoffset', lerp(750, 0, pSubLaser).toFixed(1));
+        dom.subLaserTrace.setAttribute('opacity', clamp(subLaserAlpha, 0, 1).toFixed(3));
+
+        // 3) Registered Trademark '®' Crisp Reveal at Top-Right (6.60s -> 7.25s)
+        const pReg = easeOutQuint(norm(t, 6.60, 7.25));
+        dom.monumentReg.style.opacity = easeOutCubic(norm(t, 6.60, 6.95)).toFixed(3);
+        dom.monumentReg.style.transform = `scale(${lerp(1.35, 1.0, pReg)})`;
+
+        /* ----------------------------------------------------------------------
+           ACT IV (7.8s – 10.0s+): LIVING 4K SPECULAR SWEEP & INTERACTIVE 3D PARALLAX
+           ---------------------------------------------------------------------- */
+        let sweepPhase = 0;
+        if (t >= 5.00 && t <= 6.40) {
+          sweepPhase = easeInOutCubic(norm(t, 5.00, 6.40));
+        } else if (t > 7.40) {
+          sweepPhase = easeInOutCubic(norm((t - 7.40) % 2.6, 0.0, 1.55));
+        }
+        const sweepActive = (t >= 5.00 && t <= 6.40) || (t > 7.40 && ((t - 7.40) % 2.6) <= 1.55);
+        dom.holoSweepRect.setAttribute('x', lerp(-950, 1450, sweepPhase));
+        dom.holoSweepRect.setAttribute('opacity', sweepActive ? (Math.sin(sweepPhase * Math.PI) * 0.82).toFixed(3) : '0');
+
+        // Gentle liquid caustic breathing inside the 3D Water Droplet
+        const causticPulse = 1 + 0.07 * Math.sin(t * 3.8);
+        dom.dropletCaustic.setAttribute('rx', (52 * causticPulse).toFixed(1));
+        dom.dropletCaustic.setAttribute('ry', (68 / causticPulse).toFixed(1));
+
+        /* ----------------------------------------------------------------------
+           SMOOTH CINEMA CAMERA DOLLY + REAL-TIME MOUSE PARALLAX & SHADOW SHIFT
+           ---------------------------------------------------------------------- */
+        state.smoothX = lerp(state.smoothX, state.mouseX, 0.08);
+        state.smoothY = lerp(state.smoothY, state.mouseY, 0.08);
+
+        const pCamLock = easeInOutCubic(norm(t, 0.0, 5.50));
+        const orbitRotX = lerp(16, 0, pCamLock);
+        const orbitRotY = lerp(-20, 0, pCamLock) + Math.sin(norm(t, 2.0, 5.0) * Math.PI) * 10;
+        const orbitRotZ = lerp(-4, 0, pCamLock);
+        const dollyScale = lerp(1.12, 1.0, easeOutCubic(norm(t, 0.0, 5.30)));
+        const idleBreath = t > 5.6 ? Math.sin((t - 5.6) * 1.6) * 0.005 : 0;
+
+        const totalRotX = orbitRotX - state.smoothY * 13;
+        const totalRotY = orbitRotY + state.smoothX * 16;
+        const totalRotZ = orbitRotZ - state.smoothX * 1.2;
+        const totalScale = dollyScale + idleBreath;
+
+        dom.stageWrap.style.transform = `scale(${totalScale.toFixed(4)}) rotateX(${totalRotX.toFixed(2)}deg) rotateY(${totalRotY.toFixed(2)}deg) rotateZ(${totalRotZ.toFixed(2)}deg)`;
+
+        // Dynamically shift directional 45° studio drop shadows and slide softbox reflections
+        const shadowDxFar = 14 - state.smoothX * 16;
+        const shadowDyFar = 24 - state.smoothY * 12;
+        dom.dynShadowFar.setAttribute('dx', shadowDxFar.toFixed(1));
+        dom.dynShadowFar.setAttribute('dy', shadowDyFar.toFixed(1));
+        dom.dynShadowMid.setAttribute('dx', (shadowDxFar * 0.38).toFixed(1));
+        dom.dynShadowMid.setAttribute('dy', (shadowDyFar * 0.38).toFixed(1));
+
+        const glossShiftX = state.smoothX * 24;
+        const glossShiftY = state.smoothY * 14;
+        dom.vSoftboxGroup.setAttribute('transform', `translate(${glossShiftX.toFixed(1)}, ${glossShiftY.toFixed(1)})`);
+        dom.e1Gloss.setAttribute('transform', `translate(${(glossShiftX * 0.65).toFixed(1)}, 0)`);
+        dom.e2Gloss.setAttribute('transform', `translate(${(glossShiftX * 0.65).toFixed(1)}, 0)`);
+
+        /* ----------------------------------------------------------------------
+           RENDER BACKGROUND & FOREGROUND 4K CANVASES
+           ---------------------------------------------------------------------- */
+        renderCanvases(t, studioRevealProgress, flareScreen);
+
+        /* ----------------------------------------------------------------------
+           UPDATE SCRUBBER & TIMECODE DISPLAY
+           ---------------------------------------------------------------------- */
+        if (!state.scrubbing) {
+          dom.scrubber.value = t.toFixed(2);
+        }
+        dom.timecodeDisplay.textContent = `${t.toFixed(2).padStart(5, '0')}s / 10.00s`;
+      }
+
+      /* ==========================================================================
+         7. DUAL-CANVAS VOLUMETRIC LIGHT & OPTICAL PARTICLE RENDERER
+         ========================================================================== */
+      function renderCanvases(t, studioRevealProgress, flareScreen) {
+        bgCtx.clearRect(0, 0, vw, vh);
+        fgCtx.clearRect(0, 0, vw, vh);
+
+        const centerPt = svgToScreen(624, 480);
+
+        // 1) Volumetric Radial Atmosphere in Dark Void (Acts I & II or Obsidian Mode)
+        if (studioRevealProgress < 0.95) {
+          bgCtx.save();
+          const rayAlpha = clamp(1 - studioRevealProgress, 0, 1) * 0.22;
+          const grad = bgCtx.createRadialGradient(centerPt.x, centerPt.y, 10, centerPt.x, centerPt.y, Math.max(vw, vh) * 0.62);
+          grad.addColorStop(0, `rgba(56, 232, 255, ${rayAlpha})`);
+          grad.addColorStop(0.45, `rgba(11, 72, 168, ${rayAlpha * 0.48})`);
+          grad.addColorStop(1, 'rgba(2, 5, 11, 0)');
+          bgCtx.fillStyle = grad;
+          bgCtx.fillRect(0, 0, vw, vh);
+          bgCtx.restore();
+        }
+
+        // 2) Atmospheric Studio Light Motes
+        const tighten = 1 - easeInOutCubic(norm(t, 0.0, 2.40));
+        const expand = easeOutCubic(norm(t, 2.30, 5.30));
+
+        for (let i = 0; i < MOTE_COUNT; i++) {
+          const p = studioMotes[i];
+          let px, py, pAlpha, pRadius;
+
+          if (t < 2.40) {
+            const ang = p.angle + t * p.orbitSpeed * 1.8;
+            const rad = p.radius * (0.12 + 0.88 * tighten);
+            px = centerPt.x + Math.cos(ang) * rad;
+            py = centerPt.y + Math.sin(ang) * rad * 0.68;
+            pAlpha = 0.78;
+            pRadius = p.size;
+          } else {
+            const ang = p.angle + 2.40 * p.orbitSpeed * 1.8 + (t - 2.40) * 0.14;
+            const rad = p.radius * expand;
+            px = centerPt.x + Math.cos(ang) * rad + Math.sin(t + i) * 14 + state.smoothX * 22;
+            py = centerPt.y + Math.sin(ang) * rad * 0.74 + Math.cos(t * 0.8 + i) * 14 + state.smoothY * 16;
+            pAlpha = studioRevealProgress > 0.6 ? 0.28 : 0.58;
+            pRadius = p.size * 0.82;
+          }
+
+          bgCtx.beginPath();
+          bgCtx.arc(px, py, pRadius, 0, Math.PI * 2);
+          bgCtx.fillStyle = p.color;
+          bgCtx.globalAlpha = pAlpha;
+          bgCtx.fill();
+        }
+        bgCtx.globalAlpha = 1;
+
+        // 3) Warm Golden Light Rim Wave during Studio Reveal (t = 5.00s -> 6.45s)
+        if (state.visualMode === 'genesis' && t >= 5.00 && t <= 6.45) {
+          const pRing = easeInOutCubic(norm(t, 5.00, 6.45));
+          const ringRadius = studioRevealProgress * Math.hypot(vw, vh) * 1.5;
+          fgCtx.save();
+          fgCtx.beginPath();
+          fgCtx.arc(flareScreen.x, flareScreen.y, Math.max(1, ringRadius), 0, Math.PI * 2);
+          fgCtx.strokeStyle = '#FFE299';
+          fgCtx.lineWidth = lerp(22, 1.5, pRing);
+          fgCtx.globalAlpha = (1 - pRing) * 0.75;
+          fgCtx.shadowColor = '#FFD166';
+          fgCtx.shadowBlur = 28;
+          fgCtx.stroke();
+          fgCtx.restore();
+        }
+
+        // 4) Render Expanding Optical Ripple Rings
+        for (let i = activeShockwaves.length - 1; i >= 0; i--) {
+          const sw = activeShockwaves[i];
+          sw.r += sw.speed;
+          sw.alpha = clamp(1 - sw.r / sw.maxR, 0, 1);
+          if (sw.alpha <= 0.02) {
+            activeShockwaves.splice(i, 1);
+            continue;
+          }
+          fgCtx.save();
+          fgCtx.beginPath();
+          fgCtx.arc(sw.x, sw.y, sw.r, 0, Math.PI * 2);
+          fgCtx.strokeStyle = sw.color;
+          fgCtx.lineWidth = 2.6 * sw.alpha + 0.8;
+          fgCtx.globalAlpha = sw.alpha * 0.75;
+          fgCtx.stroke();
+          fgCtx.restore();
+        }
+
+        // 5) Render Fine Optical Filament Sparks
+        for (let i = liveSparks.length - 1; i >= 0; i--) {
+          const sp = liveSparks[i];
+          sp.x += sp.vx;
+          sp.y += sp.vy;
+          sp.vy += 0.1;
+          sp.life -= sp.decay;
+          if (sp.life <= 0) {
+            liveSparks.splice(i, 1);
+            continue;
+          }
+          fgCtx.save();
+          fgCtx.beginPath();
+          fgCtx.moveTo(sp.x, sp.y);
+          fgCtx.lineTo(sp.x - sp.vx * 2.0, sp.y - sp.vy * 2.0);
+          fgCtx.strokeStyle = sp.color;
+          fgCtx.lineWidth = sp.size * sp.life;
+          fgCtx.lineCap = 'round';
+          fgCtx.globalAlpha = sp.life;
+          fgCtx.stroke();
+          fgCtx.restore();
+        }
+
+        // 6) Render Hydro-Mist Droplets
+        for (let i = splashDroplets.length - 1; i >= 0; i--) {
+          const d = splashDroplets[i];
+          d.x += d.vx;
+          d.y += d.vy;
+          d.vy += 0.09;
+          d.life -= d.decay;
+          if (d.life <= 0) {
+            splashDroplets.splice(i, 1);
+            continue;
+          }
+          fgCtx.save();
+          fgCtx.beginPath();
+          fgCtx.arc(d.x, d.y, d.radius * d.life, 0, Math.PI * 2);
+          fgCtx.fillStyle = d.color;
+          fgCtx.globalAlpha = d.life * 0.88;
+          fgCtx.shadowColor = '#38E8FF';
+          fgCtx.shadowBlur = 8;
+          fgCtx.fill();
+          fgCtx.restore();
+        }
+      }
+
+      /* ==========================================================================
+         8. MAIN 60FPS ANIMATION LOOP
+         ========================================================================== */
+      function tick(now) {
+        const dt = Math.min((now - state.lastTick) / 1000, 0.1);
+        state.lastTick = now;
+
+        if (state.playing && !state.scrubbing) {
+          state.t += dt * state.speed;
+          if (state.t >= TOTAL_DURATION) {
+            if (state.loop) {
+              state.t = 0.0;
+              syncSoundCueFlags(0);
+            } else {
+              state.t = TOTAL_DURATION;
+              setPlayingUI(false);
+            }
+          }
+        }
+
+        renderFrame(state.t);
+        requestAnimationFrame(tick);
+      }
+
+      /* ==========================================================================
+         9. PREMIERE GATE, DIRECTOR CONTROLS & KEYBOARD SHORTCUTS
+         ========================================================================== */
+      function setPlayingUI(playing) {
+        state.playing = playing;
+        dom.iconPause.classList.toggle('hidden', !playing);
+        dom.iconPlay.classList.toggle('hidden', playing);
+      }
+
+      function refreshSoundUI() {
+        if (state.soundEnabled) {
+          dom.soundIndicatorDot.className = 'w-2 h-2 rounded-full bg-emerald-400 shadow-[0_0_8px_#34d399]';
+          dom.soundToggleText.textContent = 'Hall Audio: ON';
+          dom.ctaSoundLabel.textContent = 'REPLAY 4K INTRO (AUDIO ACTIVE)';
+        } else {
+          dom.soundIndicatorDot.className = 'w-2 h-2 rounded-full bg-slate-500';
+          dom.soundToggleText.textContent = 'Hall Audio: OFF';
+          dom.ctaSoundLabel.textContent = 'REPLAY 4K INTRO WITH AUDIO';
+        }
+      }
+
+      // Premiere Overlay Button: Unlocks Stereo Concert Hall Audio and starts from 0.00s
+      dom.btnLaunchPremiere.addEventListener('click', () => {
+        dom.premiereOverlay.classList.add('dismissed');
+        hallAudio.unlock();
+        state.soundEnabled = true;
+        refreshSoundUI();
+        state.t = 0.0;
+        syncSoundCueFlags(0);
+        setPlayingUI(true);
+        wakeStudioHud();
+      });
+
+      dom.btnLaunchMuted.addEventListener('click', () => {
+        dom.premiereOverlay.classList.add('dismissed');
+        wakeStudioHud();
+      });
+
+      // Top Header Replay with Audio CTA
+      dom.btnReplaySound.addEventListener('click', () => {
+        dom.premiereOverlay.classList.add('dismissed');
+        hallAudio.unlock();
+        state.soundEnabled = true;
+        refreshSoundUI();
+        state.t = 0.0;
+        syncSoundCueFlags(0);
+        setPlayingUI(true);
+      });
+
+      // Play / Pause
+      dom.btnPlayPause.addEventListener('click', () => {
+        if (state.t >= TOTAL_DURATION - 0.05) {
+          state.t = 0.0;
+          syncSoundCueFlags(0);
+          setPlayingUI(true);
+        } else {
+          setPlayingUI(!state.playing);
+        }
+      });
+
+      // Restart
+      dom.btnRestart.addEventListener('click', () => {
+        state.t = 0.0;
+        syncSoundCueFlags(0);
+        setPlayingUI(true);
+      });
+
+      // Sound Toggle
+      dom.btnSoundToggle.addEventListener('click', () => {
+        hallAudio.unlock();
+        state.soundEnabled = !state.soundEnabled;
+        refreshSoundUI();
+      });
+
+      // Timeline Scrubber
+      dom.scrubber.addEventListener('input', (e) => {
+        state.scrubbing = true;
+        state.t = parseFloat(e.target.value);
+        syncSoundCueFlags(state.t);
+        renderFrame(state.t);
+      });
+      dom.scrubber.addEventListener('change', () => {
+        state.scrubbing = false;
+      });
+
+      // Act Markers Jump
+      dom.actMarkers.forEach((btn) => {
+        btn.addEventListener('click', () => {
+          const target = parseFloat(btn.getAttribute('data-seek'));
+          state.t = target;
+          syncSoundCueFlags(target);
+          setPlayingUI(true);
+        });
+      });
+
+      // Visual Theme Switcher
+      dom.modeBtns.forEach((btn) => {
+        btn.addEventListener('click', () => {
+          state.visualMode = btn.getAttribute('data-mode');
+          dom.modeBtns.forEach((b) => {
+            const active = b === btn;
+            b.className = active
+              ? 'mode-btn px-2.5 py-1 rounded-lg text-[11px] font-bold bg-amber-400 text-slate-950 transition-all'
+              : 'mode-btn px-2.5 py-1 rounded-lg text-[11px] font-medium text-slate-300 hover:text-white transition-all';
+          });
+          renderFrame(state.t);
+        });
+      });
+
+      // Speed Toggle
+      dom.btnSpeed.addEventListener('click', () => {
+        state.speed = state.speed === 1.0 ? 0.5 : 1.0;
+        dom.btnSpeed.textContent = state.speed === 1.0 ? '1.0x Cinema' : '0.5x Slow-Mo';
+      });
+
+      // Loop Toggle
+      dom.btnLoop.addEventListener('click', () => {
+        state.loop = !state.loop;
+        dom.btnLoop.textContent = state.loop ? 'Loop: ON' : 'Loop: OFF';
+        dom.btnLoop.className = state.loop
+          ? 'px-2.5 py-1.5 rounded-xl bg-amber-500/20 border border-amber-400/40 text-xs font-mono text-amber-300 transition-all'
+          : 'px-2.5 py-1.5 rounded-xl bg-white/5 text-xs font-mono text-slate-400 transition-all';
+      });
+
+      // Fullscreen
+      function toggleFullscreen() {
+        if (!document.fullscreenElement) {
+          document.documentElement.requestFullscreen().catch(() => {});
+        } else {
+          document.exitFullscreen().catch(() => {});
+        }
+      }
+      dom.btnFullscreen.addEventListener('click', toggleFullscreen);
+
+      // Clean 4K Capture Mode (H key)
+      let cleanCaptureLocked = false;
+      function toggleCleanCapture() {
+        cleanCaptureLocked = !cleanCaptureLocked;
+        document.body.classList.toggle('hud-hidden', cleanCaptureLocked);
+      }
+      dom.btnCleanCapture.addEventListener('click', toggleCleanCapture);
+
+      // Interactive Click on Stage -> Hydro-Gold Optical Ripple & Harmonic Chime
+      dom.viewport.addEventListener('pointerdown', (e) => {
+        triggerOpticalRing(e.clientX, e.clientY, '#38E8FF', 340, 13);
+        triggerOpticalRing(e.clientX, e.clientY, '#FFD166', 240, 10);
+        spawnHydroMistBurst(e.clientX, e.clientY, 20);
+        if (state.soundEnabled) {
+          hallAudio.playSubtitleSheenChime();
+        }
+      });
+
+      // Mouse / Touch 3D Parallax & Auto-Hide HUD Timer
+      let hudIdleTimeout = null;
+      function wakeStudioHud() {
+        if (cleanCaptureLocked) return;
+        document.body.classList.remove('hud-hidden');
+        clearTimeout(hudIdleTimeout);
+        hudIdleTimeout = setTimeout(() => {
+          if (state.playing && !state.scrubbing) {
+            document.body.classList.add('hud-hidden');
+          }
+        }, 3400);
+      }
+
+      window.addEventListener('mousemove', (e) => {
+        state.mouseX = (e.clientX / window.innerWidth - 0.5) * 2;
+        state.mouseY = (e.clientY / window.innerHeight - 0.5) * 2;
+        wakeStudioHud();
+      });
+
+      window.addEventListener('touchmove', (e) => {
+        if (e.touches.length > 0) {
+          state.mouseX = (e.touches[0].clientX / window.innerWidth - 0.5) * 2;
+          state.mouseY = (e.touches[0].clientY / window.innerHeight - 0.5) * 2;
+          wakeStudioHud();
+        }
+      }, { passive: true });
+
+      // Keyboard Shortcuts
+      window.addEventListener('keydown', (e) => {
+        if (e.code === 'Space') {
+          e.preventDefault();
+          dom.btnPlayPause.click();
+          wakeStudioHud();
+        } else if (e.key === 'r' || e.key === 'R') {
+          dom.btnRestart.click();
+          wakeStudioHud();
+        } else if (e.key === 'h' || e.key === 'H') {
+          toggleCleanCapture();
+        } else if (e.key === 'f' || e.key === 'F') {
+          toggleFullscreen();
+        } else if (e.key === 'm' || e.key === 'M') {
+          dom.btnSoundToggle.click();
+          wakeStudioHud();
+        }
+      });
+
+      // Start 60FPS 4K Render Loop
+      requestAnimationFrame(tick);
+    };
+  </script>
+</body>
+</html>
