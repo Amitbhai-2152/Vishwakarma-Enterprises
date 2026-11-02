@@ -1,6 +1,8 @@
 /*
- * Vishwakarma Enterprises — isolated homepage logo intro
- * Safe fallback: any missing/broken video or autoplay failure reveals the website.
+ * Vishwakarma Enterprises — isolated homepage HTML intro
+ * The standalone intro runs in a same-origin iframe.
+ * It can notify this page with VE_INTRO_READY and VE_INTRO_FINISHED.
+ * Failure to load or signal readiness reveals the normal homepage.
  */
 (() => {
   "use strict";
@@ -8,37 +10,27 @@
   const config = window.VE_INTRO_CONFIG || {};
   const root = document.documentElement;
 
-  const labels = () => {
-    const english = root.lang === "en";
-    return english
-      ? { enableSound: "Enable sound", muteSound: "Mute sound", skip: "Skip intro" }
-      : { enableSound: "आवाज़ चालू करें", muteSound: "आवाज़ बंद करें", skip: "इंट्रो छोड़ें" };
-  };
-
-  const removePendingState = () => {
-    root.classList.remove("ve-intro-pending");
-  };
+  const finishPageSetup = () => root.classList.remove("ve-intro-pending");
 
   const initialiseIntro = () => {
     if (!config.enabled) {
-      removePendingState();
+      finishPageSetup();
       return;
     }
 
     const overlay = document.getElementById("ve-intro-overlay");
-    const video = document.getElementById("ve-intro-video");
+    const frame = document.getElementById("ve-intro-frame");
     const skipButton = document.getElementById("ve-intro-skip");
-    const soundButton = document.getElementById("ve-intro-sound");
 
     const revealWebsite = () => {
-      removePendingState();
+      finishPageSetup();
       if (overlay) overlay.hidden = true;
     };
 
     if (
       !overlay ||
-      !video ||
-      !config.videoSrc ||
+      !frame ||
+      !config.introSrc ||
       (window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches)
     ) {
       revealWebsite();
@@ -46,74 +38,68 @@
     }
 
     let finished = false;
-    let loadTimer = null;
+    let readyTimer = null;
+    let maxTimer = null;
+    const readyTimeoutMs = Math.max(3000, Number(config.readyTimeoutMs) || 12000);
+    const maxDurationMs = Math.max(readyTimeoutMs, Number(config.maxDurationMs) || 90000);
+    const fadeDurationMs = Math.max(0, Number(config.fadeDurationMs) || 650);
 
     const finishIntro = () => {
       if (finished) return;
       finished = true;
 
-      if (loadTimer !== null) window.clearTimeout(loadTimer);
-      video.pause();
+      if (readyTimer !== null) window.clearTimeout(readyTimer);
+      if (maxTimer !== null) window.clearTimeout(maxTimer);
+
       overlay.setAttribute("aria-hidden", "true");
       overlay.classList.add("ve-intro-exiting");
 
-      const fadeDuration = Number(config.fadeDurationMs) || 650;
       window.setTimeout(() => {
         overlay.hidden = true;
         overlay.classList.remove("ve-intro-exiting");
-        removePendingState();
-      }, fadeDuration);
+        finishPageSetup();
+      }, fadeDurationMs);
     };
 
-    const updateSoundLabel = () => {
-      const text = labels();
-      const isMuted = video.muted;
-      soundButton.textContent = isMuted ? text.enableSound : text.muteSound;
-      soundButton.setAttribute("aria-label", soundButton.textContent);
-      soundButton.setAttribute("aria-pressed", String(!isMuted));
+    const onMessage = (event) => {
+      if (event.origin !== window.location.origin) return;
+      if (event.source !== frame.contentWindow) return;
+
+      const message = event.data;
+      if (message === "VE_INTRO_READY" || message?.type === "VE_INTRO_READY") {
+        if (readyTimer !== null) {
+          window.clearTimeout(readyTimer);
+          readyTimer = null;
+        }
+        return;
+      }
+
+      if (message === "VE_INTRO_FINISHED" || message?.type === "VE_INTRO_FINISHED") {
+        finishIntro();
+      }
     };
 
     overlay.hidden = false;
     overlay.setAttribute("aria-hidden", "false");
-    video.muted = true;
-    video.playsInline = true;
-    video.preload = "auto";
 
     if (skipButton) {
-      skipButton.textContent = labels().skip;
       skipButton.addEventListener("click", finishIntro, { once: true });
     }
 
-    if (soundButton) {
-      updateSoundLabel();
-      soundButton.addEventListener("click", () => {
-        video.muted = !video.muted;
-        updateSoundLabel();
-      });
-    }
+    window.addEventListener("message", onMessage);
 
-    video.addEventListener("ended", finishIntro, { once: true });
-    video.addEventListener("error", finishIntro, { once: true });
+    // A valid intro page should send VE_INTRO_READY when its UI is ready.
+    // If it never does, fail open instead of trapping visitors on a blank screen.
+    readyTimer = window.setTimeout(() => {
+      window.removeEventListener("message", onMessage);
+      revealWebsite();
+    }, readyTimeoutMs);
 
-    video.addEventListener("canplay", () => {
-      if (loadTimer !== null) {
-        window.clearTimeout(loadTimer);
-        loadTimer = null;
-      }
+    // Last-resort safety net for an intro page that never signals completion.
+    maxTimer = window.setTimeout(finishIntro, maxDurationMs);
 
-      const playback = video.play();
-      if (playback && typeof playback.catch === "function") {
-        playback.catch(finishIntro);
-      }
-    }, { once: true });
-
-    loadTimer = window.setTimeout(
-      finishIntro,
-      Math.max(3000, Number(config.loadTimeoutMs) || 20000)
-    );
-
-    video.src = config.videoSrc;
-    video.load();
+    frame.addEventListener("error", revealWebsite, { once: true });
+    frame.src = config.introSrc;
   };
 
   if (document.readyState === "loading") {
