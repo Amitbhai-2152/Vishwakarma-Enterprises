@@ -1,4 +1,4 @@
-const CACHE_NAME="vishwakarma-v5";
+const CACHE_NAME="vishwakarma-v6";
 const APP_SHELL=["/","/index.html","/products.html","/product.html","/offline.html","/manifest.json","/css/main.css","/css/components.css","/css/responsive.css","/css/animations.css","/css/product-detail.css","/css/sprint3.css","/css/production.css","/js/app.js","/js/layout.js","/js/translations.js","/js/products.js","/js/product.js","/js/product-repository.js","/images/logo.png","/images/app-icon.svg","/images/shop1.jpeg","/images/shop2.jpeg","/images/shop3.jpeg"];
 const isCacheable=response=>response&&response.ok&&response.type==="basic";
 self.addEventListener("install",event=>event.waitUntil(caches.open(CACHE_NAME).then(cache=>cache.addAll(APP_SHELL)).then(()=>self.skipWaiting())));
