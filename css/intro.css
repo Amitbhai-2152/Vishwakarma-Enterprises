@@ -1,0 +1,102 @@
+/*
+ * Vishwakarma Enterprises — homepage logo intro styles
+ * Kept separate from the main site styles for easy rollback.
+ */
+html.ve-intro-pending,
+html.ve-intro-pending body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden !important;
+}
+
+html.ve-intro-pending #site-header,
+html.ve-intro-pending body > main,
+html.ve-intro-pending #site-footer {
+  visibility: hidden !important;
+}
+
+.ve-intro-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 20000;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  background: #050505;
+  opacity: 1;
+  visibility: visible;
+}
+
+.ve-intro-overlay[hidden] {
+  display: none !important;
+}
+
+.ve-intro-video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  background: #050505;
+}
+
+.ve-intro-actions {
+  position: absolute;
+  right: clamp(14px, 3vw, 36px);
+  bottom: clamp(14px, 3vw, 30px);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 10px;
+  max-width: calc(100% - 28px);
+}
+
+.ve-intro-action {
+  min-height: 42px;
+  padding: 10px 16px;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  border-radius: 999px;
+  color: #fff;
+  background: rgba(20, 20, 20, 0.72);
+  font: 600 13px/1.2 Poppins, "Noto Sans Devanagari", sans-serif;
+  cursor: pointer;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.ve-intro-action:hover {
+  background: rgba(55, 55, 55, 0.9);
+}
+
+.ve-intro-action:focus-visible {
+  outline: 3px solid #ffb300;
+  outline-offset: 3px;
+}
+
+.ve-intro-overlay.ve-intro-exiting {
+  opacity: 0;
+  transition: opacity 650ms ease;
+  pointer-events: none;
+}
+
+@media (max-width: 600px) {
+  .ve-intro-actions {
+    right: 12px;
+    bottom: 12px;
+    gap: 8px;
+  }
+
+  .ve-intro-action {
+    min-height: 40px;
+    padding: 9px 13px;
+    font-size: 12px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ve-intro-overlay,
+  .ve-intro-overlay.ve-intro-exiting {
+    transition: none;
+  }
+}
