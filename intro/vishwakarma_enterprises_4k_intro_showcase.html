@@ -275,6 +275,29 @@
       cursor: none;
     }
   </style>
+  <style id="ve-homepage-intro-overrides">
+    /* Homepage embedding mode: hide the director gate and studio HUD. */
+    #premiere-overlay, #top-header, #hud-bar { display: none !important; }
+    #ve-enable-sound {
+      position: fixed;
+      left: max(14px, env(safe-area-inset-left));
+      bottom: max(14px, env(safe-area-inset-bottom));
+      z-index: 1000;
+      min-height: 42px;
+      padding: 10px 16px;
+      border: 1px solid rgba(255,255,255,.3);
+      border-radius: 999px;
+      color: #fff;
+      background: rgba(3, 12, 30, .78);
+      font: 600 12px/1.3 Montserrat, sans-serif;
+      box-shadow: 0 8px 28px rgba(0,0,0,.28);
+      cursor: pointer;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+    #ve-enable-sound:disabled { opacity: .75; cursor: default; }
+    #ve-enable-sound:focus-visible { outline: 3px solid #FFD166; outline-offset: 3px; }
+  </style>
 </head>
 <body class="select-none">
 
@@ -912,11 +935,12 @@
          1. MASTER CONFIGURATION & STATE (10.00 SECONDS @ 60FPS)
          ========================================================================== */
       const TOTAL_DURATION = 10.0;
+      let introFinishNotified = false;
       const state = {
         t: 0.0,
         playing: true,
         speed: 1.0,
-        loop: true,
+        loop: false,
         visualMode: 'genesis', // 'genesis' | 'studio' | 'obsidian'
         soundEnabled: false,
         scrubbing: false,
@@ -1942,6 +1966,12 @@
             } else {
               state.t = TOTAL_DURATION;
               setPlayingUI(false);
+              if (!introFinishNotified) {
+                introFinishNotified = true;
+                if (window.parent !== window) {
+                  window.parent.postMessage("VE_INTRO_FINISHED", window.location.origin);
+                }
+              }
             }
           }
         }
@@ -1969,6 +1999,22 @@
           dom.soundToggleText.textContent = 'Hall Audio: OFF';
           dom.ctaSoundLabel.textContent = 'REPLAY 4K INTRO WITH AUDIO';
         }
+      }
+
+      // Optional audio replay control for the homepage intro. Audio is user-initiated
+      // because browsers block audible autoplay in many situations.
+      const homepageSoundButton = document.getElementById('ve-enable-sound');
+      if (homepageSoundButton) {
+        homepageSoundButton.addEventListener('click', () => {
+          hallAudio.unlock();
+          state.soundEnabled = true;
+          refreshSoundUI();
+          state.t = 0.0;
+          syncSoundCueFlags(0);
+          setPlayingUI(true);
+          homepageSoundButton.textContent = 'Sound enabled · replaying intro';
+          homepageSoundButton.disabled = true;
+        });
       }
 
       // Premiere Overlay Button: Unlocks Stereo Concert Hall Audio and starts from 0.00s
@@ -2148,9 +2194,15 @@
         }
       });
 
-      // Start 60FPS 4K Render Loop
+      // Tell the homepage that the intro is fully initialized.
+      if (window.parent !== window) {
+        window.parent.postMessage("VE_INTRO_READY", window.location.origin);
+      }
+
+      // Start the 10-second intro once; the homepage takes over at completion.
       requestAnimationFrame(tick);
     };
   </script>
+  <button id="ve-enable-sound" type="button">Enable sound + replay intro</button>
 </body>
 </html>
