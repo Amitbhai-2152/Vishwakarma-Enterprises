@@ -40,16 +40,28 @@
     let finished = false;
     let readyTimer = null;
     let maxTimer = null;
-    const readyTimeoutMs = Math.max(3000, Number(config.readyTimeoutMs) || 12000);
-    const maxDurationMs = Math.max(readyTimeoutMs, Number(config.maxDurationMs) || 90000);
+
+    const readyTimeoutMs = Math.max(3000, Number(config.readyTimeoutMs) || 25000);
+    const maxDurationMs = Math.max(readyTimeoutMs, Number(config.maxDurationMs) || 45000);
     const fadeDurationMs = Math.max(0, Number(config.fadeDurationMs) || 650);
+
+    const cleanup = () => {
+      if (readyTimer !== null) window.clearTimeout(readyTimer);
+      if (maxTimer !== null) window.clearTimeout(maxTimer);
+      window.removeEventListener("message", onMessage);
+    };
+
+    const revealOnFailure = () => {
+      if (finished) return;
+      finished = true;
+      cleanup();
+      revealWebsite();
+    };
 
     const finishIntro = () => {
       if (finished) return;
       finished = true;
-
-      if (readyTimer !== null) window.clearTimeout(readyTimer);
-      if (maxTimer !== null) window.clearTimeout(maxTimer);
+      cleanup();
 
       overlay.setAttribute("aria-hidden", "true");
       overlay.classList.add("ve-intro-exiting");
@@ -88,17 +100,13 @@
 
     window.addEventListener("message", onMessage);
 
-    // A valid intro page should send VE_INTRO_READY when its UI is ready.
-    // If it never does, fail open instead of trapping visitors on a blank screen.
-    readyTimer = window.setTimeout(() => {
-      window.removeEventListener("message", onMessage);
-      revealWebsite();
-    }, readyTimeoutMs);
+    // If remote scripts prevent the intro from initializing, fail open.
+    readyTimer = window.setTimeout(revealOnFailure, readyTimeoutMs);
 
-    // Last-resort safety net for an intro page that never signals completion.
+    // Last-resort safety net if an intro never announces completion.
     maxTimer = window.setTimeout(finishIntro, maxDurationMs);
 
-    frame.addEventListener("error", revealWebsite, { once: true });
+    frame.addEventListener("error", revealOnFailure, { once: true });
     frame.src = config.introSrc;
   };
 
